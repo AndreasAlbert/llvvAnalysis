@@ -56,6 +56,10 @@ def parseCommandline():
         options.configfile_mc   = os.path.expandvars( '$CMSSW_BASE/src/llvvAnalysis/DMAnalysis/test/run_mainAnalyzer_mc_cfg_80X.py' )
         options.configfile_data = os.path.expandvars( '$CMSSW_BASE/src/llvvAnalysis/DMAnalysis/test/run_mainAnalyzer_data_cfg_80X.py' )
         options.outtag_mc       = 'RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3'
+        options.splitting_mc    = 'FileBased' 
+        options.json_mc         = ''
+        options.splitting_data  = 'LumiBased'
+        options.json_data       = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
         options.outpath         = os.path.join( outpath, 'llvv_80', options.skimtag )
         options.workarea        = os.path.join( workarea, 'llvv_80', options.skimtag )
     else:
@@ -101,8 +105,12 @@ def main():
         if( 'MC13TeV' in tag ):
             configfile = options.configfile_mc
             outtag = options.outtag_mc
+            json = options.json_mc
+            split = options.splitting_mc
         elif( 'Data13TeV' in tag ):
             configfile = options.configfile_data
+            json = options.json_data
+            split = options.splitting_data
             outtag = datapath.split('/')[2]
         else:
             log.error( "Cannot decide whether this tag is MC or data: '%s'" % tag )
@@ -120,6 +128,8 @@ def main():
                         ( '@INPUTDATASET', datapath         ),
                         ( '@OUTPATH',      options.outpath          ),
                         ( '@FILESPERJOB',  str(options.filesPerJob) ),
+                        ( '@JSON',  json ),
+                        ( '@Method',  split ),
                         ( '@OUTTAG',       outtag           ) ]
 
         thistemplate = template
