@@ -18,7 +18,7 @@ def parseCommandline():
                         help='Set the debug level. Allowed values: ERROR, WARNING, INFO, DEBUG. [default = %default]' )
     parser.add_option( '-f', '--filesPerJob', type ='int', default=3,
                         help='Set the maximum number of files to be processed by one CRAB job [default = %default].' )
-    parser.add_option( '-t', '--template', type ='str', default='$CMSSW_BASE/src/crab_template_cfg.py',
+    parser.add_option( '-t', '--template', type ='str', default='$CMSSW_BASE/src/llvvAnalysis/DMAnalysis/data/crab_template_cfg.py',
                         help='Path to the CRAB template config. [default = %default].' )
 
     ( options, args ) = parser.parse_args()
