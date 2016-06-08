@@ -59,7 +59,7 @@ def parseCommandline():
         options.splitting_mc    = 'FileBased' 
         options.json_mc         = ''
         options.splitting_data  = 'LumiBased'
-        options.json_data       = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions16/13TeV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt'
+        options.json_data       = os.path.expandvars( '$CMSSW_BASE/src/llvvAnalysis/DMAnalysis/dataV/Cert_271036-274240_13TeV_PromptReco_Collisions16_JSON.txt')
         options.outpath         = os.path.join( outpath, 'llvv_80', options.skimtag )
         options.workarea        = os.path.join( workarea, 'llvv_80', options.skimtag )
     else:
