@@ -35,10 +35,10 @@ def parseCommandline():
 
     options.skimtag = args[0]
 
-    outpath = '/store/user/amohamed/crab/'
+    outpath = '/store/user/aalbert/crab/'
 
     ### Creat the working area.
-    workarea = '/cmshome/amohamed/CMSSW_8_0_5/src/test'
+    workarea = '/disk1/albert/test'
     try:
         os.mkdir( workarea )
     except OSError: pass
