@@ -124,7 +124,7 @@
           ]
         },
         {
-          "dtag": "MC13TeV_ggToZZTo2e2mu",
+          "dtag": "MC13TeV_GluGluToZZTo2e2mu",
           "xsec": 0.00319,
           "split": 1,
           "br": [
@@ -140,7 +140,7 @@
           ]
         },
         {
-          "dtag": "MC13TeV_ggToZZTo2e2tau",
+          "dtag": "MC13TeV_GluGluToZZTo2e2tau",
           "xsec": 0.00319,
           "split": 1,
           "br": [
