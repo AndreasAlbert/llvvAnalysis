@@ -573,6 +573,7 @@ MainAnalyzer::analyze(const edm::Event& event, const edm::EventSetup& iSetup)
 
         ev.mn_d0[ev.mn] = -mu.muonBestTrack()->dxy(PV.position());
         ev.mn_dZ[ev.mn] = mu.muonBestTrack()->dz(PV.position());
+        ev.mn_tkLayers[ev.mn] = (mu.innerTrack().get()!=0) ? mu.innerTrack()->hitPattern().trackerLayersWithMeasurement() : -1; 
         ev.mn_ip3d[ev.mn] = mu.dB(pat::Muon::PV3D);
         ev.mn_ip3dsig[ev.mn] = mu.dB(pat::Muon::PV3D)/mu.edB(pat::Muon::PV3D);
 
@@ -662,6 +663,10 @@ MainAnalyzer::analyze(const edm::Event& event, const edm::EventSetup& iSetup)
         ev.en_pz[ev.en] = el->pz();
         ev.en_en[ev.en] = el->energy();
         ev.en_id[ev.en] = 11*el->charge();
+
+	// Needed for energy scale and resolution corrections 
+	ev.en_EtaSC[ev.en] = el->superCluster()->eta();
+	ev.en_R9[ev.en] = el->r9();
 
         /*
                 ev.en_EtaSC[ev.en] = el->superCluster()->eta();
