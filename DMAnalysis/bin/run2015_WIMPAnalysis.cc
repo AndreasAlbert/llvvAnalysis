@@ -440,6 +440,7 @@ int main(int argc, char* argv[])
     mon.addHistogram( new TH1F( "axialpfmet_rel_final", ";Axial/PFMET;Events", 20,-1,1) );
     mon.addHistogram( new TH1F( "transpfmet_rel_final", ";Transv/PFMET;Events", 10,0,1) );
     mon.addHistogram( new TH1F( "dphiJetMET_final",    ";#Delta#it{#phi}(#it{jet},E_{T}^{miss});Events", 10,0,TMath::Pi()) );
+    mon.addHistogram( new TH1F( "weight_wimp",    ";Events", 2,0,2) );
 
 
 
@@ -778,6 +779,7 @@ int main(int argc, char* argv[])
         double weight_QCDscale_muR0p5_muF1(0.);
         double weight_QCDscale_muR0p5_muF0p5(0.);
 
+        double weight_wimp(1.0);
         if(isMC_WIMP || isMC_ADD || isMC_Unpart || isMC_ZZ2L2Nu) {
             if(phys.genleptons.size()!=2) continue;
             if(phys.genGravitons.size()!=1 && phys.genWIMPs.size()!=2 && phys.genneutrinos.size()!=2) continue;
@@ -792,8 +794,12 @@ int main(int argc, char* argv[])
 
             //reweighting
             if(doWIMPreweighting) {
-                if(url.Contains("TeV_DM_")) weight *= myWIMPweights.get1DWeights(genmet.pt(),"genmet_acc_simplmod");
-                if(url.Contains("TeV_EWKDM_S_Mx")) weight *= myWIMPweights.get1DWeights(genmet.pt(),"pt_chichi");
+                if(url.Contains("TeV_DM_")) weight_wimp = myWIMPweights.get1DWeights(genmet.pt(),"genmet_acc_simplmod");
+                if(url.Contains("TeV_EWKDM_S_Mx")) weight_wimp = myWIMPweights.get1DWeights(genmet.pt(),"pt_chichi");
+                weight *= weight_wimp;
+                // Keep track of the normalisation difference due to WIMP reweighting
+                mon.fillHisto("weight_wimp",tags, 0.5, 1 );
+                mon.fillHisto("weight_wimp",tags, 1.5, weight_wimp );
             }
             //if(doWIMPreweighting) weight *= myWIMPweights.get2DWeights(genmet.pt(),dphizmet,"dphi_vs_met");
 
@@ -1518,7 +1524,7 @@ int main(int argc, char* argv[])
                                     mon.fillHisto("transpfmet_rel_final",  tags, transmet_rel,    weight);
                                     mon.fillHisto("met_pfMinusCalo_final",tags, met_pfMinusCalo, weight);
                                     mon.fillHisto("dphiJetMET_final",tags, dphiJetMET, weight);
-
+                                
                                     if(passMETcut120) mon.fillHisto("mt_final120",   tags, MT_massless, weight);
 
                                     if(!isMC) fprintf(outTxtFile_final,"%d | %d | %d | pfmet: %f | mt: %f | mass: %f \n",ev.run,ev.lumi,ev.event,metP4.pt(), MT_massless,zll.mass());
