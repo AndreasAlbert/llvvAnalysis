@@ -289,7 +289,7 @@ int main(int argc, char* argv[])
     h->GetXaxis()->SetBinLabel(3,"Trigger && 2 Tight Leptons && =2 Leptons in MEX/1");
 
     //for MC normalization (to 1/pb)
-    TH1F* Hcutflow  = (TH1F*) mon.addHistogram(  new TH1F ("cutflow"    , "cutflow"    ,10,0,10) ) ;
+    TH1F* Hcutflow  = (TH1F*) mon.addHistogram(  new TH1F ("cutflow"    , "cutflow"    ,12,0,12) ) ;
 
     mon.addHistogram( new TH1F( "nvtx_raw",	";Vertices;Events",50,0,50) );
     mon.addHistogram( new TH1F( "nvtxwgt_raw",	";Vertices;Events",50,0,50) );
@@ -798,8 +798,8 @@ int main(int argc, char* argv[])
                 if(url.Contains("TeV_EWKDM_S_Mx")) weight_wimp = myWIMPweights.get1DWeights(genmet.pt(),"pt_chichi");
                 weight *= weight_wimp;
                 // Keep track of the normalisation difference due to WIMP reweighting
-                mon.fillHisto("weight_wimp",tags, 0.5, 1 );
-                mon.fillHisto("weight_wimp",tags, 1.5, weight_wimp );
+                Hcutflow->Fill(10, 1 );
+                Hcutflow->Fill(11, weight_wimp );
             }
             //if(doWIMPreweighting) weight *= myWIMPweights.get2DWeights(genmet.pt(),dphizmet,"dphi_vs_met");
 
