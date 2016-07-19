@@ -905,8 +905,8 @@ int main(int argc, char* argv[])
             double qqZZ_EWKNLO = getNLOEWKZZWeight(trailing_pt);
 
             // NNLO/NLO k-factor
-            double dPhiZZ = deltaPhi((phys.genleptons[0]+phys.genleptons[1]).Phi(), (phys.genneutrinos[0]+phys.genneutrinos[1]).Phi());
-            double qqZZ_NNLO = kfactor_qqZZ_qcd_dPhi(dPhiZZ);
+            double MZZ = (phys.genleptons[0]+phys.genleptons[1]+phys.genneutrinos[0]+phys.genneutrinos[1]).mass();
+            double qqZZ_NNLO = kfactor_qqZZ_qcd_M(MZZ);
 
             weight *= qqZZ_EWKNLO * qqZZ_NNLO;
 

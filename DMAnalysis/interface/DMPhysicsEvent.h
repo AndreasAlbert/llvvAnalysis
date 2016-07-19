@@ -175,6 +175,7 @@ float getSFfrom1DHist(double xval, TH1F* h_);
 
 float getNLOEWKZZWeight(double trailing_pt);
 float kfactor_qqZZ_qcd_dPhi(float GENdPhiZZ);
+float kfactor_qqZZ_qcd_M(float GENmassZZ);
 
 
 
