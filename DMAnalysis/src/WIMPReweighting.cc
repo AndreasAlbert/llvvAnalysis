@@ -177,8 +177,13 @@ bool WIMPReweighting::selectReferenceWIMPurl(TString &url) {
     for(size_t i=0; i<refPoints_.size(); ++i) { 
         std::pair<float, float> imxmv = extractMassesFromUrl( TString(refPoints_[i].c_str()) ); 
 	if(imxmv.first<1e-6 || imxmv.second<1e-6) continue; 
-	if(allowReweightWithSameMasses_==false && imxmv.first==mxmv.first && imxmv.second==mxmv.second) continue; 
-	if(imxmv.first<mxmv.first || imxmv.second<mxmv.second) continue; 
+	if(allowReweightWithSameMasses_==false && imxmv.first==mxmv.first && imxmv.second==mxmv.second) continue;
+
+	// Always use higher mmed as reference
+	if(imxmv.second<mxmv.second) continue;
+	// If MMed >> MDM, we do not care about MDM
+	if((mxmv.first > 0.3 * mxmv.second) and imxmv.first<mxmv.first) continue;
+
 	float diff = sqrt( pow(std::log10(imxmv.first/mxmv.first), 2) + pow(std::log10(imxmv.second/mxmv.second), 2) ); 
 	if(diff<mindist) { 
 	    mindist = diff; 
