@@ -801,6 +801,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(1)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1Mv225",
+          "xsec": 0.116,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(1)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1Mv250",
+          "xsec": 0.0945,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(1)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1Mv275",
+          "xsec": 0.07813,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(1)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -900,6 +969,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx1Mv450",
           "xsec": 0.02439,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(1)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1Mv500",
+          "xsec": 0.01876,
           "split": 1,
           "br": [
             1.0
@@ -1721,6 +1813,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(5)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx5Mv225",
+          "xsec": 0.116,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(5)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx5Mv250",
+          "xsec": 0.09453,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(5)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx5Mv275",
+          "xsec": 0.07813,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(5)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -1820,6 +1981,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx5Mv450",
           "xsec": 0.0244,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(5)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx5Mv500",
+          "xsec": 0.01876,
           "split": 1,
           "br": [
             1.0
@@ -2641,6 +2825,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(10)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx10Mv225",
+          "xsec": 0.1159,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(10)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx10Mv250",
+          "xsec": 0.09451,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(10)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx10Mv275",
+          "xsec": 0.07809,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(10)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -2740,6 +2993,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx10Mv450",
           "xsec": 0.02441,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(10)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx10Mv500",
+          "xsec": 0.01876,
           "split": 1,
           "br": [
             1.0
@@ -3561,6 +3837,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(25)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx25Mv225",
+          "xsec": 0.1159,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(25)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx25Mv250",
+          "xsec": 0.09443,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(25)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx25Mv275",
+          "xsec": 0.07809,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(25)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -3660,6 +4005,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx25Mv450",
           "xsec": 0.02438,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(25)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx25Mv500",
+          "xsec": 0.01876,
           "split": 1,
           "br": [
             1.0
@@ -4481,6 +4849,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(50)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx50Mv225",
+          "xsec": 0.1145,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(50)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx50Mv250",
+          "xsec": 0.0938,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(50)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx50Mv275",
+          "xsec": 0.07766,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(50)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -4580,6 +5017,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx50Mv450",
           "xsec": 0.02435,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(50)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx50Mv500",
+          "xsec": 0.01874,
           "split": 1,
           "br": [
             1.0
@@ -5401,6 +5861,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(60)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx60Mv225",
+          "xsec": 0.1131,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(60)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx60Mv250",
+          "xsec": 0.09294,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(60)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx60Mv275",
+          "xsec": 0.0772,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(60)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -5500,6 +6029,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx60Mv450",
           "xsec": 0.02433,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(60)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx60Mv500",
+          "xsec": 0.01872,
           "split": 1,
           "br": [
             1.0
@@ -6321,6 +6873,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(70)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx70Mv225",
+          "xsec": 0.1109,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(70)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx70Mv250",
+          "xsec": 0.09169,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(70)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx70Mv275",
+          "xsec": 0.07652,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(70)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -6420,6 +7041,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx70Mv450",
           "xsec": 0.02428,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(70)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx70Mv500",
+          "xsec": 0.0187,
           "split": 1,
           "br": [
             1.0
@@ -7241,6 +7885,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(80)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx80Mv225",
+          "xsec": 0.107,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(80)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx80Mv250",
+          "xsec": 0.08976,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(80)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx80Mv275",
+          "xsec": 0.07542,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(80)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -7340,6 +8053,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx80Mv450",
           "xsec": 0.02423,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(80)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx80Mv500",
+          "xsec": 0.01866,
           "split": 1,
           "br": [
             1.0
@@ -8161,6 +8897,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(90)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx90Mv225",
+          "xsec": 0.1002,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(90)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx90Mv250",
+          "xsec": 0.08663,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(90)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx90Mv275",
+          "xsec": 0.07373,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(90)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -8260,6 +9065,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx90Mv450",
           "xsec": 0.02415,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(90)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx90Mv500",
+          "xsec": 0.01863,
           "split": 1,
           "br": [
             1.0
@@ -9081,6 +9909,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(100)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx100Mv225",
+          "xsec": 0.08744,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(100)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx100Mv250",
+          "xsec": 0.08149,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(100)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx100Mv275",
+          "xsec": 0.07125,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(100)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -9180,6 +10077,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx100Mv450",
           "xsec": 0.02403,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(100)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx100Mv500",
+          "xsec": 0.01857,
           "split": 1,
           "br": [
             1.0
@@ -10001,6 +10921,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(110)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx110Mv225",
+          "xsec": 0.05348,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(110)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx110Mv250",
+          "xsec": 0.07259,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(110)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx110Mv275",
+          "xsec": 0.06737,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(110)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -10100,6 +11089,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx110Mv450",
           "xsec": 0.02388,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(110)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx110Mv500",
+          "xsec": 0.01848,
           "split": 1,
           "br": [
             1.0
@@ -10921,6 +11933,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(125)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx125Mv225",
+          "xsec": 0.004501,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(125)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx125Mv250",
+          "xsec": 0.02753,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(125)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx125Mv275",
+          "xsec": 0.05566,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(125)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -11020,6 +12101,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx125Mv450",
           "xsec": 0.02357,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(125)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx125Mv500",
+          "xsec": 0.01832,
           "split": 1,
           "br": [
             1.0
@@ -11841,6 +12945,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(135)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx135Mv225",
+          "xsec": 0.002607,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(135)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx135Mv250",
+          "xsec": 0.004729,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(135)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx135Mv275",
+          "xsec": 0.03371,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(135)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -11940,6 +13113,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx135Mv450",
           "xsec": 0.02329,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(135)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx135Mv500",
+          "xsec": 0.01817,
           "split": 1,
           "br": [
             1.0
@@ -12761,6 +13957,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(150)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx150Mv225",
+          "xsec": 0.00151,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(150)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx150Mv250",
+          "xsec": 0.002052,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(150)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx150Mv275",
+          "xsec": 0.003442,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(150)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -12860,6 +14125,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx150Mv450",
           "xsec": 0.02273,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(150)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx150Mv500",
+          "xsec": 0.01788,
           "split": 1,
           "br": [
             1.0
@@ -13681,6 +14969,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(175)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx175Mv225",
+          "xsec": 0.0007966,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(175)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx175Mv250",
+          "xsec": 0.0009407,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(175)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx175Mv275",
+          "xsec": 0.001172,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(175)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -13780,6 +15137,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx175Mv450",
           "xsec": 0.02112,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(175)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx175Mv500",
+          "xsec": 0.01715,
           "split": 1,
           "br": [
             1.0
@@ -14601,6 +15981,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(200)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx200Mv225",
+          "xsec": 0.0004879,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(200)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx200Mv250",
+          "xsec": 0.0005451,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(200)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx200Mv275",
+          "xsec": 0.0006254,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(200)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -14700,6 +16149,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx200Mv450",
           "xsec": 0.01778,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(200)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx200Mv500",
+          "xsec": 0.01584,
           "split": 1,
           "br": [
             1.0
@@ -15521,6 +16993,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(250)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx250Mv225",
+          "xsec": 0.0002254,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(250)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx250Mv250",
+          "xsec": 0.0002402,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(250)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx250Mv275",
+          "xsec": 0.0002585,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(250)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -15620,6 +17161,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx250Mv450",
           "xsec": 0.0008487,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(250)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx250Mv500",
+          "xsec": 0.005167,
           "split": 1,
           "br": [
             1.0
@@ -16441,6 +18005,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(300)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx300Mv225",
+          "xsec": 0.0001207,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(300)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx300Mv250",
+          "xsec": 0.0001259,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(300)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx300Mv275",
+          "xsec": 0.000132,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(300)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -16540,6 +18173,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx300Mv450",
           "xsec": 0.0002403,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(300)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx300Mv500",
+          "xsec": 0.0003364,
           "split": 1,
           "br": [
             1.0
@@ -17361,6 +19017,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(400)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx400Mv225",
+          "xsec": 4.332e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(400)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx400Mv250",
+          "xsec": 4.434e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(400)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx400Mv275",
+          "xsec": 4.552e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(400)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -17460,6 +19185,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx400Mv450",
           "xsec": 6.034e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(400)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx400Mv500",
+          "xsec": 6.829e-05,
           "split": 1,
           "br": [
             1.0
@@ -18281,6 +20029,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(500)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx500Mv225",
+          "xsec": 1.838e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(500)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx500Mv250",
+          "xsec": 1.866e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(500)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx500Mv275",
+          "xsec": 1.897e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(500)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -18380,6 +20197,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx500Mv450",
           "xsec": 2.256e-05,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(500)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx500Mv500",
+          "xsec": 2.421e-05,
           "split": 1,
           "br": [
             1.0
@@ -19201,6 +21041,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(600)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx600Mv225",
+          "xsec": 8.629e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(600)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx600Mv250",
+          "xsec": 8.72e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(600)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx600Mv275",
+          "xsec": 8.822e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(600)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -19300,6 +21209,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx600Mv450",
           "xsec": 9.939e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(600)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx600Mv500",
+          "xsec": 1.042e-05,
           "split": 1,
           "br": [
             1.0
@@ -20121,6 +22053,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(700)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx700Mv225",
+          "xsec": 4.33e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(700)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx700Mv250",
+          "xsec": 4.365e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(700)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx700Mv275",
+          "xsec": 4.403e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(700)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -20220,6 +22221,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx700Mv450",
           "xsec": 4.81e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(700)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx700Mv500",
+          "xsec": 4.976e-06,
           "split": 1,
           "br": [
             1.0
@@ -21041,6 +23065,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(800)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx800Mv225",
+          "xsec": 2.28e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(800)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx800Mv250",
+          "xsec": 2.294e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(800)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx800Mv275",
+          "xsec": 2.309e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(800)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -21140,6 +23233,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx800Mv450",
           "xsec": 2.472e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(800)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx800Mv500",
+          "xsec": 2.538e-06,
           "split": 1,
           "br": [
             1.0
@@ -21961,6 +24077,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(900)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx900Mv225",
+          "xsec": 1.244e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(900)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx900Mv250",
+          "xsec": 1.251e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(900)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx900Mv275",
+          "xsec": 1.258e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(900)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -22060,6 +24245,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx900Mv450",
           "xsec": 1.328e-06,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(900)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx900Mv500",
+          "xsec": 1.356e-06,
           "split": 1,
           "br": [
             1.0
@@ -22881,6 +25089,75 @@
       "isdata": false,
       "color": "809",
       "issignal": true,
+      "tag": "DM(1000)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1000Mv225",
+          "xsec": 6.993e-07,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(1000)MV(250)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1000Mv250",
+          "xsec": 7.022e-07,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(1000)MV(275)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1000Mv275",
+          "xsec": 7.053e-07,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
       "tag": "DM(1000)MV(300)gQ(0.25)",
       "lwidth": 2,
       "marker": 809,
@@ -22980,6 +25257,29 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx1000Mv450",
           "xsec": 7.374e-07,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(1000)MV(500)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx1000Mv500",
+          "xsec": 7.5e-07,
           "split": 1,
           "br": [
             1.0
@@ -23463,6 +25763,1386 @@
         {
           "dtag": "MC13TeV_DM_V_GQ0p25_Mx1000Mv5000",
           "xsec": 4.422e-07,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(2)MV(14)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx2Mv14",
+          "xsec": 7.789,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(7)MV(5)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx7Mv5",
+          "xsec": 0.1796,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(12)MV(34)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx12Mv34",
+          "xsec": 2.319,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(17)MV(25)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx17Mv25",
+          "xsec": 0.07877,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(22)MV(54)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx22Mv54",
+          "xsec": 1.077,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(27)MV(45)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx27Mv45",
+          "xsec": 0.05091,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(32)MV(74)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx32Mv74",
+          "xsec": 0.6141,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(37)MV(65)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx37Mv65",
+          "xsec": 0.03736,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(42)MV(94)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx42Mv94",
+          "xsec": 0.3937,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(47)MV(85)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx47Mv85",
+          "xsec": 0.02938,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(52)MV(114)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx52Mv114",
+          "xsec": 0.2735,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(57)MV(105)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx57Mv105",
+          "xsec": 0.02396,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(62)MV(134)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx62Mv134",
+          "xsec": 0.1996,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(67)MV(125)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx67Mv125",
+          "xsec": 0.02006,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(72)MV(154)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx72Mv154",
+          "xsec": 0.1508,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(77)MV(145)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx77Mv145",
+          "xsec": 0.01709,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(82)MV(174)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx82Mv174",
+          "xsec": 0.117,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(87)MV(165)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx87Mv165",
+          "xsec": 0.01474,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(92)MV(194)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx92Mv194",
+          "xsec": 0.09269,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(97)MV(185)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx97Mv185",
+          "xsec": 0.01284,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(102)MV(214)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx102Mv214",
+          "xsec": 0.07476,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(107)MV(205)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx107Mv205",
+          "xsec": 0.01128,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(112)MV(234)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx112Mv234",
+          "xsec": 0.06107,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(117)MV(225)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx117Mv225",
+          "xsec": 0.009977,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(122)MV(254)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx122Mv254",
+          "xsec": 0.0506,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(127)MV(245)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx127Mv245",
+          "xsec": 0.008873,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(132)MV(274)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx132Mv274",
+          "xsec": 0.04239,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(137)MV(265)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx137Mv265",
+          "xsec": 0.007928,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(142)MV(294)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx142Mv294",
+          "xsec": 0.03579,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(147)MV(285)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx147Mv285",
+          "xsec": 0.007117,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(152)MV(314)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx152Mv314",
+          "xsec": 0.03045,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(157)MV(305)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx157Mv305",
+          "xsec": 0.006417,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(162)MV(334)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx162Mv334",
+          "xsec": 0.02611,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(167)MV(325)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx167Mv325",
+          "xsec": 0.005801,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(172)MV(354)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx172Mv354",
+          "xsec": 0.02138,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(177)MV(345)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx177Mv345",
+          "xsec": 0.005254,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(182)MV(374)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx182Mv374",
+          "xsec": 0.018,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(187)MV(365)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx187Mv365",
+          "xsec": 0.004753,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(192)MV(394)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx192Mv394",
+          "xsec": 0.01546,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(197)MV(385)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx197Mv385",
+          "xsec": 0.004318,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(202)MV(414)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx202Mv414",
+          "xsec": 0.01339,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(207)MV(405)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx207Mv405",
+          "xsec": 0.003934,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(212)MV(434)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx212Mv434",
+          "xsec": 0.01171,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(217)MV(425)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx217Mv425",
+          "xsec": 0.003589,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(222)MV(454)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx222Mv454",
+          "xsec": 0.01029,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(227)MV(445)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx227Mv445",
+          "xsec": 0.003288,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(232)MV(474)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx232Mv474",
+          "xsec": 0.009087,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(237)MV(465)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx237Mv465",
+          "xsec": 0.003016,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(242)MV(494)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx242Mv494",
+          "xsec": 0.008067,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(247)MV(485)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx247Mv485",
+          "xsec": 0.00277,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(252)MV(514)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx252Mv514",
+          "xsec": 0.007183,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(257)MV(505)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx257Mv505",
+          "xsec": 0.002546,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(262)MV(534)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx262Mv534",
+          "xsec": 0.006419,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(267)MV(525)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx267Mv525",
+          "xsec": 0.002347,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(272)MV(554)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx272Mv554",
+          "xsec": 0.005759,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(277)MV(545)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx277Mv545",
+          "xsec": 0.002167,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(282)MV(574)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx282Mv574",
+          "xsec": 0.005181,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(287)MV(565)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx287Mv565",
+          "xsec": 0.002001,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(292)MV(594)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx292Mv594",
+          "xsec": 0.004671,
+          "split": 1,
+          "br": [
+            1.0
+          ]
+        }
+      ],
+      "fill": 0,
+      "spimpose": true,
+      "lcolor": "809",
+      "lstyle": 8,
+      "doWIMPreweighting": true
+    },
+    {
+      "isdata": false,
+      "color": "809",
+      "issignal": true,
+      "tag": "DM(297)MV(585)gQ(0.25)",
+      "lwidth": 2,
+      "marker": 809,
+      "data": [
+        {
+          "dtag": "MC13TeV_DM_V_GQ0p25_Mx297Mv585",
+          "xsec": 0.001851,
           "split": 1,
           "br": [
             1.0
