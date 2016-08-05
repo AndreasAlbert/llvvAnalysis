@@ -36,7 +36,8 @@
 #include<set>
 
 using namespace std;
-double NonResonnantSyst = 0.25; //0.1;//0.25;
+
+double NonResonnantSyst = 0.25;
 
 double WWtopSyst_ee0jet = 0.;
 double WWtopSyst_ee1jet = 0.;
@@ -45,10 +46,9 @@ double WWtopSyst_mm0jet = 0.;
 double WWtopSyst_mm1jet = 0.;
 double WWtopSyst_mmlesq1jet = 0.;
 
-double GammaJetSyst = 0.7;//1.0; //0.5;//0.5, 1.0;
-double ZjetsExtropSyst = 0.6;
-double WjetsSyst_ee = 0.146;
-double WjetsSyst_mm = 0.229;
+double WjetsSyst_ee = 0.;
+double WjetsSyst_mm = 0.;
+
 
 struct YIELDS_T {
     double WZ;
@@ -171,8 +171,6 @@ bool skipWW = true;
 std::vector<TString> Channels;
 std::vector<TString> AnalysisBins;
 bool fast = false;
-bool skipGGH = false;
-bool skipQQH = false;
 bool subDY = false;
 bool subWZ = false;
 double DDRescale = 1.0;
@@ -201,40 +199,12 @@ bool runSystematics = false;
 bool shape = false;
 float sysSherpa=1.;
 
+TString signal="";
 void initNormalizationSysts()
 {
-    normSysts["lumi_7TeV"] = 0.022;
-    normSysts["lumi_8TeV"] = 0.026;
-    normSysts["lumi_13TeV"] = 0.062; //0.0270; //0.046;
-    normSysts["accept_7TeV"] = 0.;//0.02;//0.003; //RJ
-    normSysts["accept_8TeV"] = 0.;//0.02;//0.018; //RJ
-    normSysts["sherpa_kin_syst"] = sysSherpa-1.0;
+    normSysts["lumi_13TeV"] = 0.062;
     normSysts["CMS_eff_e"] = 0.03;
     normSysts["CMS_eff_m"] = 0.04;
-    normSysts["CMS_scale_e"] = 0.01; // do we need it? There's shape uncertainty "les"...
-    normSysts["CMS_scale_m"] = 0.01; // do we need it? There's shape uncertainty "les"...
-    normSysts["QCDscale_VV_zz_7Tev"] = 0.07021;
-    normSysts["QCDscale_VV_wz_7Tev"] = 0.059;
-    normSysts["QCDscale_VV_zz_8Tev"] = 0.0944;
-    normSysts["QCDscale_VV_wz_8Tev"] = 0.054;
-    normSysts["QCDscale_VV1in_zz_7Tev"] = 0.91657-1.0; // s'ha da fa' cosi'...
-    normSysts["QCDscale_VV1in_zz_8Tev"] = 0.92617-1.0; // s'ha da fa' cosi'...
-    normSysts["pdf_VV_zz_7TeV"] = 0.0115;
-    normSysts["pdf_VV_wz_7TeV"] = 0.0116;
-    normSysts["pdf_VV_zz_8TeV"] = 0.0112;
-    normSysts["pdf_VV_wz_8TeV"] = 0.0120;
-    //normSysts["sys_zlldata_7TeV"] = GammaJetSyst;
-    //normSysts["sys_zlldata_8TeV"] = GammaJetSyst;
-    //normSysts["sys_topwwwjetsdata_8TeV"] = NonResonnantSyst;
-    //normSysts["sys_topwwwjetsdata_7TeV"] = NonResonnantSyst;
-    normSysts["EM_7TeV"] = 1.0;
-    normSysts["EM_8TeV"] = 1.0;
-    //
-    normSysts["CMS_zllwimps_mumueq0jets_leptonVeto"] = 0.01;
-    normSysts["CMS_zllwimps_eeeq0jets_leptonVeto"] = 0.01;
-    normSysts["CMS_zllwimps_mumueq1jets_leptonVeto"] = 0.013;
-    normSysts["CMS_zllwimps_eeeq1jets_leptonVeto"] = 0.013;
-
 
     //unparticle
     normSysts["QCDscale_UnPart1p01"]=1.027561608;
@@ -270,10 +240,6 @@ void printHelp()
     printf("--index     --> index of selection to be used (Xbin in histogram to be used)\n");
     printf("--indexL    --> index of selection to be used (Xbin in histogram to be used) used for interpolation\n");
     printf("--indexR    --> index of selection to be used (Xbin in histogram to be used) used for interpolation\n");
-    printf("--m         --> higgs mass to be considered\n");
-    printf("--mL        --> higgs mass on the left  of the mass to be considered (used for interpollation\n");
-    printf("--mR        --> higgs mass on the right of the mass to be considered (used for interpollation\n");
-    printf("--atgc      --> aTGC parameter (ex. string format: \"f4z=-0.01\")\n");
     printf("--syst      --> use this flag if you want to run systematics, default is no systematics\n");
     printf("--shape     --> use this flag if you want to run shapeBased analysis, default is cut&count\n");
     printf("--subNRB    --> use this flag if you want to subtract non-resonant-backgounds similarly to what was done in 2011 (will also remove H->WW)\n");
@@ -293,7 +259,6 @@ void printHelp()
     printf("--systpostfix    --> use this to specify a syst postfix that will be added to the process names)\n");
     printf("--MCRescale    --> use this to specify a syst postfix that will be added to the process names)\n");
     printf("--interf     --> use this to rescale xsection according to WW interferences)\n");
-    printf("--aTGC_Syst    --> use this to specify that you want to add and extra systematic in the shape)\n");
 }
 
 //
@@ -357,12 +322,6 @@ int main(int argc, char* argv[])
         } else if(arg.find("--HWW")      !=string::npos) {
             skipWW=false;
             printf("HWW = True\n");
-        } else if(arg.find("--skipGGH")  !=string::npos) {
-            skipGGH=true;
-            printf("skipGGH = True\n");
-        } else if(arg.find("--skipQQH")  !=string::npos) {
-            skipQQH=true;
-            printf("skipQQH = True\n");
         } else if(arg.find("--blindWithSignal")  !=string::npos) {
             blindData=true;
             blindWithSignal=true;
@@ -417,34 +376,6 @@ int main(int argc, char* argv[])
             histo     = argv[i+1];
             i++;
             printf("histo = %s\n", histo.Data());
-        } else if(arg.find("--mL")       !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%i",&massL );
-            i++;
-            printf("massL = %i\n", massL);
-        } else if(arg.find("--mR")       !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%i",&massR );
-            i++;
-            printf("massR = %i\n", massR);
-        } else if(arg.find("--mV")       !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%i",&MV );
-            i++;
-            printf("MV = %i\n", MV);
-        } else if(arg.find("--mA")       !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%i",&MA );
-            i++;
-            printf("MA = %i\n", MA);
-        } else if(arg.find("--K1")       !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%f",&K1 );
-            i++;
-            printf("K1 = %f\n", K1);
-        } else if(arg.find("--K2")       !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%f",&K2 );
-            i++;
-            printf("K2 = %f\n", K2);
-        } else if(arg.find("--m")        !=string::npos && i+1<argc)  {
-            sscanf(argv[i+1],"%i",&mass );
-            i++;
-            printf("mass = %i\n", mass);
         } else if(arg.find("--bins")     !=string::npos && i+1<argc)  {
             char* pch = strtok(argv[i+1],",");
             printf("bins are : ");
@@ -619,21 +550,11 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
 
             hshape->Scale(MCRescale);
 
-
-
             //save in structure
             if(isData) {
                 if(varName=="")  shape.data=hshape;
                 else continue;
             } else if(isSignal) {
-                if(skipGGH && proc.Contains("ggH"))continue;
-                if(skipQQH && proc.Contains("qqH"))continue;
-
-                if(skipWW && string(proc.Data()).find("WW")!=string::npos )continue;
-                if(!skipWW && mergeWWandZZ) {
-                    proc.ReplaceAll("WW","VV");
-                    proc.ReplaceAll("ZZ","VV");
-                }
 
                 if(varName=="") {
                     if(Process[i]["data"].daughters()[0].isTag("xsec"))shape.xsections[proc] = Process[i]["data"].daughters()[0]["xsec"].toDouble();
@@ -805,52 +726,6 @@ void getYieldsFromShape(std::vector<TString> ch, const map<TString, Shape_t> &al
                 h=allShapes.find(ch[ich]+AnalysisBins[b]+shName)->second.signal[isig];
                 TString procTitle(h->GetTitle());
                 procTitle.ReplaceAll("#","\\");
-
-                if(mass>0 && !procTitle.Contains(massStr))continue;
-
-                if(procTitle.Contains("D1")) {
-                    if(mass>0 && !procTitle.Contains("D1("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D4")) {
-                    if(mass>0 && !procTitle.Contains("D4("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D5")) {
-                    if(mass>0 && !procTitle.Contains("D5("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D8")) {
-                    if(mass>0 && !procTitle.Contains("D8("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D9")) {
-                    if(mass>0 && !procTitle.Contains("D9("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("C3")) {
-                    if(mass>0 && !procTitle.Contains("C3("+massStr+"GeV)"))continue;
-                }
-
-                if(procTitle.Contains("Unpart")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !procTitle.Contains("Unpart("+massStr+")"))continue;
-                }
-
-                if(procTitle.Contains("ADD")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !procTitle.Contains("ADD("+massStr+")"))continue;
-                }
-
-                if(procTitle.Contains("EWK_S_DM")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !procTitle.Contains("EWK_S_DM("+massStr+")_K1("+K1Str+")_K2("+K2Str+")"))continue;
-                }
-
-                if(procTitle.Contains("DM") && procTitle.Contains("MV")) {
-                    if(mass<0 || MV<0) continue;
-                    if(!procTitle.Contains("DM("+massStr+")MV("+MVStr+")")) continue;
-                }
-
-                if(procTitle.Contains("DM") && procTitle.Contains("MA")) {
-                    if(mass<0 || MA<0) continue;
-                    if(!procTitle.Contains("DM("+massStr+")MA("+MAStr+")")) continue;
-                }
 
                 cout << "Signals >>>>>>> " << procTitle << endl;
 
@@ -1291,33 +1166,12 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
 
     //define vector for search
     std::vector<TString>& channels_for_limits = Channels;
-    //channels_for_limits.push_back("ee"); channels_for_limits.push_back("mumu");
 
-    //non-resonant background estimation
-    //estimateNonResonantBackground(channels_for_limits,"emu",allShapes,"nonresbckg_ctrl");
-    /*
-        // estimate jet induced background
-        //>>>>>>>>>>>>>>>>>>>>
-        doWjetsBackground(channels_for_limits,allShapes,histo); // W+jets -> Wjets (data)
-        //<<<<<<<<<<<<<<<<<<<<
-        //doQCDBackground(channels_for_limits,allShapes,histo);
-    */
-
-
-    // Mono-Z analysis (new)   Top/WW/Ztautau (data)
-    //MC closure test, adding systematics
+    //// Non-resonant backgrounds are estimated from data.
+    // Perform MC closure test, assign systematic uncertainties based on outcome
     dodataDrivenWWtW(channels_for_limits,"emu",allShapes,histo,true);
-    //new data-driven WW/tW/Ztautau background
+    // Create the real estimate
     dodataDrivenWWtW(channels_for_limits,"emu",allShapes,histo,false);
-
-    /*
-        //remove the non-resonant background from data
-        //if(subNRB2011 || subNRB2012) doBackgroundSubtraction(channels_for_limits,"emu",allShapes,histo,histo+"_NRBctrl", url, Root, false);
-        //MC closure test
-        //if(subNRB2011 || subNRB2012) doBackgroundSubtraction(channels_for_limits,"emu",allShapes,histo,histo+"_NRBctrl", url, Root, true);
-        //replace WZ by its estimate from 3rd Lepton SB
-        //if(subWZ)doWZSubtraction(channels_for_limits,"emu",allShapes,histo,histo+"_3rdLepton");
-    */
 
     // MC Z+jets -> DYExtrapolation
     doDYextrapolation(channels_for_limits,allShapes,histo,"pfmet_minus_shapes", DYMET_EXTRAPOL, true);
@@ -1351,34 +1205,6 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
                 TH1* h=shapeSt.signal[isignal];
 
                 TString proc(h->GetTitle());
-                if(mass>0 && !proc.Contains(massStr))continue;
-
-                if(proc.Contains("Unpart")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !proc.Contains("Unpart("+massStr+")"))continue;
-                }
-
-                if(proc.Contains("ADD")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !proc.Contains("ADD("+massStr+")"))continue;
-                }
-
-                if(proc.Contains("EWK_S_DM")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !proc.Contains("EWK_S_DM("+massStr+")_K1("+K1Str+")_K2("+K2Str+")"))continue;
-                }
-
-                if(proc.Contains("DM") && proc.Contains("MV")) {
-                    if(mass<0 || MV<0) continue;
-                    if(!proc.Contains("DM("+massStr+")MV("+MVStr+")")) continue;
-                }
-
-                if(proc.Contains("DM") && proc.Contains("MA")) {
-                    if(mass<0 || MA<0) continue;
-                    if(!proc.Contains("DM("+massStr+")MA("+MAStr+")")) continue;
-                }
-
-                if(mass>0 && proc.Contains("ZH")                        )proc = "ZH"+massStr+"2lMET";
 
                 cout << "############## Signal: " << proc << "##############" << endl;
                 std::vector<std::pair<TString, TH1*> > vars = shapeSt.signalVars[h->GetTitle()];
