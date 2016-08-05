@@ -487,10 +487,14 @@ int main(int argc, char* argv[])
             sscanf(argv[i+1],"%f",&sysSherpa);
             i++;
             printf("Additional systematic on the shape setted: %f\n", sysSherpa);
+        } else if(arg.find("--signal")!=string::npos) {
+            signal = argv[i+1];
+            i++;
+            printf("Chosen signal: %s\n", signal.Data());
         }
     }
 
-    if(jsonFile.IsNull() || inFileUrl.IsNull() || histo.IsNull() || indexcut == -1 || mass==-1) {
+    if(jsonFile.IsNull() || inFileUrl.IsNull() || histo.IsNull() || indexcut == -1 || signal.IsNull()) {
         printHelp();
         return -1;
     }
@@ -537,6 +541,9 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
         if(onlyData && !isData)continue; //just here to speedup the NRB prediction
 
         bool isSignal(Process[i].isTag("issignal") && Process[i]["issignal"].toBool());
+
+        // Only keep the one signal explicitly specified on the command line
+        if( isSignal and not proc.Contains(signal) ) continue;
         if(Process[i]["spimpose"].toBool() && (proc.Contains("ggH") || proc.Contains("qqH")))isSignal=true;
         int color(1);
         if(Process[i].isTag("color" ) ) color  = (int)Process[i]["color" ].toInt();
