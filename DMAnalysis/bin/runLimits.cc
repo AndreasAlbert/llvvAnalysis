@@ -152,13 +152,13 @@ void getYieldsFromShape(std::vector<TString> ch, const map<TString, Shape_t> &al
 void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bin, TString& ch, std::vector<TString>& systs, std::vector<TH1*>& hshapes);
 DataCardInputs convertHistosForLimits(Int_t mass,TString histo="finalmt",TString url="plotter.root",TString Json="");
 std::vector<TString> buildDataCard(Int_t mass, TString histo="finalmt", TString url="plotter.root",TString Json="");
-void doBackgroundSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TString, Shape_t> &allShapes, TString mainHisto, TString sideBandHisto, TString url, JSONWrapper::Object &Root, bool isMCclosureTest);
-void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Shape_t> &allShapes, TString mainHisto,bool isMCclosureTest);
-void doWjetsBackground(std::vector<TString>& selCh,map<TString, Shape_t> &allShapes, TString mainHisto);
-void doDYextrapolation(std::vector<TString>& selCh,map<TString, Shape_t> &allShapes,TString mainHisto,TString DY_EXTRAPOL_SHAPES,float DY_EXTRAPOL,bool isleftCR);
-void doQCDBackground(std::vector<TString>& selCh,map<TString, Shape_t> &allShapes, TString mainHisto);
-void doWZSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TString, Shape_t>& allShapes, TString mainHisto, TString sideBandHisto);
-void BlindData(std::vector<TString>& selCh, map<TString, Shape_t>& allShapes, TString mainHisto, bool addSignal);
+void doBackgroundSubtraction(std::vector<TString>& signal_channels,TString control_channel,map<TString, Shape_t> &allShapes, TString mainHisto, TString sideBandHisto, TString url, JSONWrapper::Object &Root, bool isMCclosureTest);
+void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_channel,map<TString, Shape_t> &allShapes, TString mainHisto,bool isMCclosureTest);
+void doWjetsBackground(std::vector<TString>& signal_channels,map<TString, Shape_t> &allShapes, TString mainHisto);
+void doDYextrapolation(std::vector<TString>& signal_channels,map<TString, Shape_t> &allShapes,TString mainHisto,TString DY_EXTRAPOL_SHAPES,float DY_EXTRAPOL,bool isleftCR);
+void doQCDBackground(std::vector<TString>& signal_channels,map<TString, Shape_t> &allShapes, TString mainHisto);
+void doWZSubtraction(std::vector<TString>& signal_channels,TString control_channel,map<TString, Shape_t>& allShapes, TString mainHisto, TString sideBandHisto);
+void BlindData(std::vector<TString>& signal_channels, map<TString, Shape_t>& allShapes, TString mainHisto, bool addSignal);
 
 
 
@@ -933,15 +933,15 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
     TString combinedcardLL = "";
 
     //build the datacard separately for each channel
-    for(size_t i=1; i<=dci.ch.size(); i++) {
+    for( auto const & channel : dci.ch ) {
         TString dcName=dci.shapesFile;
-        dcName.ReplaceAll(".root","_"+dci.ch[i-1]+".dat");
+        dcName.ReplaceAll(".root","_"+channel+".dat");
         FILE* pFile = fopen(dcName.Data(),"w");
 
-        if(!dci.ch[i-1].Contains("lleq")) combinedcard += dci.ch[i-1]+"="+dcName+" ";
-        if(dci.ch[i-1].Contains("lleq"))  combinedcardLL += dci.ch[i-1]+"="+dcName+" ";
-        if(dci.ch[i-1].Contains("ee"))    eecard += dci.ch[i-1]+"="+dcName+" ";
-        if(dci.ch[i-1].Contains("mumu"))  mumucard += dci.ch[i-1]+"="+dcName+" ";
+        if(!channel.Contains("lleq")) combinedcard += channel+"="+dcName+" ";
+        if(channel.Contains("lleq"))  combinedcardLL += channel+"="+dcName+" ";
+        if(channel.Contains("ee"))    eecard += channel+"="+dcName+" ";
+        if(channel.Contains("mumu"))  mumucard += channel+"="+dcName+" ";
 
         //header
         fprintf(pFile, "imax 1\n");
@@ -949,41 +949,41 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
         fprintf(pFile, "kmax *\n");
         fprintf(pFile, "-------------------------------\n");
         if(shape) {
-            fprintf(pFile, "shapes * * %s %s/$PROCESS %s/$PROCESS_$SYSTEMATIC\n",dci.shapesFile.Data(), dci.ch[i-1].Data(), dci.ch[i-1].Data());
+            fprintf(pFile, "shapes * * %s %s/$PROCESS %s/$PROCESS_$SYSTEMATIC\n",dci.shapesFile.Data(), channel.Data(), channel.Data());
             fprintf(pFile, "-------------------------------\n");
         }
         //observations
         fprintf(pFile, "bin 1\n");
-        fprintf(pFile, "Observation %f\n",dci.obs[RateKey_t("obs",dci.ch[i-1])]);
+        fprintf(pFile, "Observation %f\n",dci.obs[RateKey_t("obs",channel)]);
         fprintf(pFile, "-------------------------------\n");
 
         fprintf(pFile,"%55s ", "bin");
-        for(size_t j=1; j<=dci.procs.size(); j++) {
-            if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
+        for(auto const & proc : dci.procs ) {
+            if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
             fprintf(pFile,"%6i ", 1);
         }
         fprintf(pFile,"\n");
 
         fprintf(pFile,"%55s ", "process");
-        for(size_t j=1; j<=dci.procs.size(); j++) {
-            if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
-            fprintf(pFile,"%6s ", (postfix+dci.procs[j-1]).Data());
+        for(auto const & proc : dci.procs ) {
+            if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
+            fprintf(pFile,"%6s ", (postfix+proc).Data());
         }
         fprintf(pFile,"\n");
 
         fprintf(pFile,"%55s ", "process");
         int procCtr(1-dci.nsignalproc);
-        for(size_t j=1; j<=dci.procs.size(); j++) {
-            if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
+        for(auto const & proc : dci.procs ) {
+            if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
             fprintf(pFile,"%6i ", procCtr );
             procCtr++;
         }
         fprintf(pFile,"\n");
 
         fprintf(pFile,"%55s ", "rate");
-        for(size_t j=1; j<=dci.procs.size(); j++) {
-            if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
-            fprintf(pFile,"%6f ", dci.rates[RateKey_t(dci.procs[j-1],dci.ch[i-1])] );
+        for(auto const & proc : dci.procs ) {
+            if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
+            fprintf(pFile,"%6f ", dci.rates[RateKey_t(proc,channel)] );
         }
         fprintf(pFile,"\n");
         fprintf(pFile, "-------------------------------\n");
@@ -995,9 +995,9 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
         if(runSystematics) {
             if(systpostfix.Contains("13")) {
                 fprintf(pFile,"%45s %10s ", "lumi_13TeV", "lnN");
-                for(size_t j=1; j<=dci.procs.size(); j++) {
-                    if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
-                    if(!dci.procs[j-1].Contains("WWTopZtautau") && !dci.procs[j-1].Contains("Zjets") && !dci.procs[j-1].Contains("Wjets")) {
+                for(auto const & proc : dci.procs ) {
+                    if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
+                    if(!proc.Contains("WWTopZtautau") && !proc.Contains("Zjets") && !proc.Contains("Wjets")) {
                         fprintf(pFile,"%6.5f ",1.0+normSysts["lumi_13TeV"]);
                     } else {
                         fprintf(pFile,"%6s ","-");
@@ -1007,11 +1007,11 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
             }
 
             //leptont efficiency
-            if(dci.ch[i-1].Contains("ee")) {
+            if(channel.Contains("ee")) {
                 fprintf(pFile,"%45s %10s ", "CMS_eff_e", "lnN");
-                for(size_t j=1; j<=dci.procs.size(); j++) {
-                    if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
-                    if(!dci.procs[j-1].Contains("WWTopZtautau") && !dci.procs[j-1].Contains("Zjets") /*&& !dci.procs[j-1].Contains("Wjets")*/) {
+                for(auto const & proc : dci.procs ) {
+                    if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
+                    if(!proc.Contains("WWTopZtautau") && !proc.Contains("Zjets") /*&& !proc.Contains("Wjets")*/) {
                         fprintf(pFile,"%6.5f ",1.0+normSysts["CMS_eff_e"]);
                     } else {
                         fprintf(pFile,"%6s ","-");
@@ -1020,9 +1020,9 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
                 fprintf(pFile,"\n");
             } else {
                 fprintf(pFile,"%45s %10s ", "CMS_eff_m", "lnN");
-                for(size_t j=1; j<=dci.procs.size(); j++) {
-                    if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
-                    if(!dci.procs[j-1].Contains("WWTopZtautau") && !dci.procs[j-1].Contains("Zjets") /*&& !dci.procs[j-1].Contains("Wjets")*/) {
+                for(auto const & proc : dci.procs ) {
+                    if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
+                    if(!proc.Contains("WWTopZtautau") && !proc.Contains("Zjets") /*&& !proc.Contains("Wjets")*/) {
                         fprintf(pFile,"%6.5f ",1.0+normSysts["CMS_eff_m"]);
                     } else {
                         fprintf(pFile,"%6s ","-");
@@ -1038,14 +1038,14 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
                 isSyst=false;
                 if(it->first.Contains("_sys_")) {
                     sprintf(sFile,"%45s %10s ", it->first.Data(), "lnN");
-                    for(size_t j=1; j<=dci.procs.size(); j++) {
-                        if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
-                        if(it->second.find(RateKey_t(dci.procs[j-1],dci.ch[i-1])) != it->second.end()) {
-                            Double_t systUnc = it->second[RateKey_t(dci.procs[j-1],dci.ch[i-1])];
+                    for(auto const & proc : dci.procs ) {
+                        if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
+                        if(it->second.find(RateKey_t(proc,channel)) != it->second.end()) {
+                            Double_t systUnc = it->second[RateKey_t(proc,channel)];
                             if(systUnc<=0) {
                                 sprintf(sFile,"%s%6s ",sFile,"-");
                             } else {
-                                sprintf(sFile,"%s%6.5f ",sFile,(1.0+ (systUnc / dci.rates[RateKey_t(dci.procs[j-1],dci.ch[i-1])]) ));
+                                sprintf(sFile,"%s%6.5f ",sFile,(1.0+ (systUnc / dci.rates[RateKey_t(proc,channel)]) ));
                                 isSyst=true;
                             }
                         } else {
@@ -1060,12 +1060,12 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
                     } else {
                         sprintf(sFile,"%45s %10s ", it->first.Data(), "lnN");
                     }
-                    for(size_t j=1; j<=dci.procs.size(); j++) {
-                        if(dci.rates.find(RateKey_t(dci.procs[j-1],dci.ch[i-1]))==dci.rates.end()) continue;
+                    for(auto const & proc : dci.procs ) {
+                        if(dci.rates.find(RateKey_t(proc,channel))==dci.rates.end()) continue;
 
-                        if(it->second.find(RateKey_t(dci.procs[j-1],dci.ch[i-1])) != it->second.end()) {
-                            //cout << "dci.procs[j-1]: " << dci.procs[j-1] << " it->first: " << it->first  << endl;
-                            if(!shape) sprintf(sFile,"%s%6.5f ",sFile,it->second[RateKey_t(dci.procs[j-1],dci.ch[i-1])]);
+                        if(it->second.find(RateKey_t(proc,channel)) != it->second.end()) {
+                            //cout << "proc: " << proc << " it->first: " << it->first  << endl;
+                            if(!shape) sprintf(sFile,"%s%6.5f ",sFile,it->second[RateKey_t(proc,channel)]);
                             else       sprintf(sFile,"%s%6s ",sFile,"1.0");
                             isSyst=true;
                         } else {
@@ -1080,7 +1080,7 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
         }
 
         fclose(pFile);
-        cout << "Data card for " << dci.shapesFile << " and " << dci.ch[i-1] << " channel @ " << dcName << endl;
+        cout << "Data card for " << dci.shapesFile << " and " << channel << " channel @ " << dcName << endl;
         dcUrls.push_back(dcName);
     }
 
@@ -1137,7 +1137,7 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
     }
 
     //get the shapes for each channel
-    map<TString, Shape_t> allShapes;
+    map<TString, Shape_t> shapes_map;
     std::vector<TString> channels = {"mumu","ee","emu","ll"};
     std::vector<TString> shapes;
     shapes.push_back(histo);
@@ -1153,7 +1153,7 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
             double cutMin=shapeMin;
             double cutMax=shapeMax;
             for( auto & i_shape : shapes ) {
-                allShapes[i_channel+i_bin+i_shape]=getShapeFromFile(input_file, i_channel+i_bin,i_shape,indexcut_,Root,cutMin, cutMax);
+                shapes_map[i_channel+i_bin+i_shape]=getShapeFromFile(input_file, i_channel+i_bin,i_shape,indexcut_,Root,cutMin, cutMax);
                 cout << "Loading shapes: " << i_channel+i_bin+i_shape << endl;
              }
         }
@@ -1169,19 +1169,19 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
 
     //// Non-resonant backgrounds are estimated from data.
     // Perform MC closure test, assign systematic uncertainties based on outcome
-    dodataDrivenWWtW(channels_for_limits,"emu",allShapes,histo,true);
+    dodataDrivenWWtW(channels_for_limits,"emu",shapes_map,histo,true);
     // Create the real estimate
-    dodataDrivenWWtW(channels_for_limits,"emu",allShapes,histo,false);
+    dodataDrivenWWtW(channels_for_limits,"emu",shapes_map,histo,false);
 
     // MC Z+jets -> DYExtrapolation
-    doDYextrapolation(channels_for_limits,allShapes,histo,"pfmet_minus_shapes", DYMET_EXTRAPOL, true);
+    doDYextrapolation(channels_for_limits,shapes_map,histo,"pfmet_minus_shapes", DYMET_EXTRAPOL, true);
 
     //replace data by total MC background
-    if(blindData) BlindData(channels_for_limits,allShapes,histo, blindWithSignal);
+    if(blindData) BlindData(channels_for_limits,shapes_map,histo, blindWithSignal);
 
     //print event yields from the mt shapes
-    //if(!fast)getYieldsFromShape(channels_for_limits,allShapes,histo,true); //blind data
-    if(!fast)getYieldsFromShape(channels_for_limits,allShapes,histo,false); //unblind data
+    //if(!fast)getYieldsFromShape(channels_for_limits,shapes_map,histo,true); //blind data
+    if(!fast)getYieldsFromShape(channels_for_limits,shapes_map,histo,false); //unblind data
 
 
 
@@ -1196,30 +1196,27 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
             fout->mkdir(chbin);
             fout->cd(chbin);
             allCh.push_back(chbin);
-            Shape_t shapeSt = allShapes.find(chbin+histo)->second;
+            Shape_t shapeSt = shapes_map.find(chbin+histo)->second;
 
             //signals
             datacard_inputs.nsignalproc = 0;
-            size_t nsignal=allShapes.find(chbin+histo)->second.signal.size();
-            for(size_t isignal=0; isignal<nsignal; isignal++) {
-                TH1* h=shapeSt.signal[isignal];
 
-                TString proc(h->GetTitle());
+            for( auto signal_histo : shapeSt.signal ) {
+                TString proc(signal_histo->GetTitle());
 
                 cout << "############## Signal: " << proc << "##############" << endl;
-                std::vector<std::pair<TString, TH1*> > vars = shapeSt.signalVars[h->GetTitle()];
                 std::vector<TString> systs;
                 std::vector<TH1*>    hshapes;
                 systs.push_back("");
-                hshapes.push_back(shapeSt.signal[isignal]);
-                cout << "\n" << shapeSt.signal[isignal]->GetTitle() << " has rate: " << shapeSt.signal[isignal]->Integral() << endl;
-                for(size_t v=0; v<vars.size(); v++) {
-                    //if(vars[v].first=="_qcdscaleacceptup" || vars[v].first=="_qcdscaleacceptdown"){
-                    //	vars[v].second->Scale(shapeSt.signal[isignal]->Integral()/vars[v].second->Integral());
-                    //}
-                    printf("SYSTEMATIC FOR SIGNAL %s : %s: %f\n",h->GetTitle(), vars[v].first.Data(), vars[v].second->Integral());
-                    systs.push_back(vars[v].first);
-                    hshapes.push_back(vars[v].second);
+                hshapes.push_back(signal_histo);
+                cout << "\n" << proc << " has rate: " << signal_histo->Integral() << endl;
+
+                for( auto & signal_histo_variation : shapeSt.signalVars[signal_histo->GetTitle()] ) {
+                    TString variation_name = signal_histo_variation.first;
+                    TH1* variation_histo = signal_histo_variation.second;
+                    printf("SYSTEMATIC FOR SIGNAL %s : %s: %f\n",proc.Data(), variation_name.Data(), variation_histo->Integral());
+                    systs.push_back(signal_histo_variation.first);
+                    hshapes.push_back(signal_histo_variation.second);
                 }
 
                 convertHistosForLimits_core(datacard_inputs, proc, AnalysisBins[b], chbin, systs, hshapes);
@@ -1228,7 +1225,7 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
             }
 
             //backgrounds
-            size_t nbckg=allShapes.find(chbin+histo)->second.bckg.size();
+            size_t nbckg=shapes_map.find(chbin+histo)->second.bckg.size();
             size_t nNonNullBckg=0;
             for(size_t ibckg=0; ibckg<nbckg; ibckg++) {
                 TH1* h=shapeSt.bckg[ibckg];
@@ -1242,11 +1239,6 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
                     if(h->GetBinContent(bin)<0) h->SetBinContent(bin,0);
                 }
                 h->Scale(tot_integralval/h->Integral());
-                //cout << "---------------------------------" << endl;
-                //for(int bin=0; bin<h->GetXaxis()->GetNbins()+1; bin++) {
-                //cout << "bin: " << bin << " val: " << h->GetBinContent(bin) << endl;
-                //}
-
 
                 std::vector<std::pair<TString, TH1*> > vars = shapeSt.bckgVars[h->GetTitle()];
 
@@ -1262,15 +1254,9 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
                     //check if any bin content has a negative value
                     double tot_integralval = h->Integral();
                     for(int bin=0; bin<h->GetXaxis()->GetNbins()+1; bin++) {
-                        //cout << "bin: " << bin << " val: " << h->GetBinContent(bin) << endl;
                         if(h->GetBinContent(bin)<0) h->SetBinContent(bin,0);
                     }
                     h->Scale(tot_integralval/h->Integral());
-                    //cout << "---------------------------------" << endl;
-                    //for(int bin=0; bin<h->GetXaxis()->GetNbins()+1; bin++) {
-                    //        cout << "bin: " << bin << " val: " << h->GetBinContent(bin) << endl;
-                    //}
-
 
                     systs.push_back(vars[v].first);
                     hshapes.push_back(h/*vars[v].second*/);
@@ -1321,9 +1307,7 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
     return datacard_inputs;
 }
 
-
-void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bin, TString& ch, std::vector<TString>& systs, std::vector<TH1*>& hshapes)
-{
+void rename_process( TString & proc ) {
     proc.ReplaceAll("#bar{t}","tbar");
     proc.ReplaceAll("Z-#gamma^{*}+jets#rightarrow ll","dy");
     proc.ReplaceAll("#rightarrow","");
@@ -1349,56 +1333,6 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
     proc.ReplaceAll("zh2002lmet","ZH_hinv");
     proc.ReplaceAll("zh3002lmet","ZH_hinv");
 
-
-    proc.ReplaceAll("c31gev","C3");
-    proc.ReplaceAll("d11gev","D1");
-    proc.ReplaceAll("d41gev","D4");
-    proc.ReplaceAll("d51gev","D5");
-    proc.ReplaceAll("d81gev","D8");
-    proc.ReplaceAll("d91gev","D9");
-
-    proc.ReplaceAll("c310gev","C3");
-    proc.ReplaceAll("d110gev","D1");
-    proc.ReplaceAll("d410gev","D4");
-    proc.ReplaceAll("d510gev","D5");
-    proc.ReplaceAll("d810gev","D8");
-    proc.ReplaceAll("d910gev","D9");
-
-    proc.ReplaceAll("c3100gev","C3");
-    proc.ReplaceAll("d1100gev","D1");
-    proc.ReplaceAll("d4100gev","D4");
-    proc.ReplaceAll("d5100gev","D5");
-    proc.ReplaceAll("d8100gev","D8");
-    proc.ReplaceAll("d9100gev","D9");
-
-    proc.ReplaceAll("c3200gev","C3");
-    proc.ReplaceAll("d1200gev","D1");
-    proc.ReplaceAll("d4200gev","D4");
-    proc.ReplaceAll("d5200gev","D5");
-    proc.ReplaceAll("d8200gev","D8");
-    proc.ReplaceAll("d9200gev","D9");
-
-    proc.ReplaceAll("c3300gev","C3");
-    proc.ReplaceAll("d1300gev","D1");
-    proc.ReplaceAll("d4300gev","D4");
-    proc.ReplaceAll("d5300gev","D5");
-    proc.ReplaceAll("d8300gev","D8");
-    proc.ReplaceAll("d9300gev","D9");
-
-    proc.ReplaceAll("c3500gev","C3");
-    proc.ReplaceAll("d1500gev","D1");
-    proc.ReplaceAll("d4500gev","D4");
-    proc.ReplaceAll("d5500gev","D5");
-    proc.ReplaceAll("d8500gev","D8");
-    proc.ReplaceAll("d9500gev","D9");
-
-    proc.ReplaceAll("c31000gev","C3");
-    proc.ReplaceAll("d11000gev","D1");
-    proc.ReplaceAll("d41000gev","D4");
-    proc.ReplaceAll("d51000gev","D5");
-    proc.ReplaceAll("d81000gev","D8");
-    proc.ReplaceAll("d91000gev","D9");
-
     proc.ReplaceAll("unpart101","UnPart1p01");
     proc.ReplaceAll("unpart102","UnPart1p02");
     proc.ReplaceAll("unpart104","UnPart1p04");
@@ -1416,14 +1350,6 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
     proc.ReplaceAll("unpart200","UnPart2p00");
     proc.ReplaceAll("unpart220","UnPart2p20");
 
-    proc.ReplaceAll("msdmvg10mx50m100","MSDMVg1p0mx50");
-    proc.ReplaceAll("msdmvg10mx50m200","MSDMVg1p0mx50");
-    proc.ReplaceAll("msdmvg10mx50m300","MSDMVg1p0mx50");
-    proc.ReplaceAll("msdmvg10mx50m500","MSDMVg1p0mx50");
-    proc.ReplaceAll("msdmvg10mx50m1000","MSDMVg1p0mx50");
-    proc.ReplaceAll("msdmvg10mx50m5000","MSDMVg1p0mx50");
-
-
     proc.ReplaceAll("zz2l2nu","ZZ");
     proc.ReplaceAll("wz3lnu","WZ");
     proc.ReplaceAll("vvv","VVV");
@@ -1431,63 +1357,67 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
     proc.ReplaceAll("topwwztautaudata","WWTopZtautau");
     proc.ReplaceAll("wjetsdata","Wjets");
     proc.ReplaceAll("wjets","Wjets");
+}
 
+void rename_systematic( TString & syst, const TString & proc, const TString & channel ) {
+    syst.ReplaceAll("down","Down");
+    syst.ReplaceAll("up","Up");
 
-
+    if(syst=="") {
+        syst="";
+    } else if(syst.BeginsWith("_jes")) {
+        syst.ReplaceAll("_jes","_CMS_scale_j");
+    } else if(syst.BeginsWith("_jer")) {
+        syst.ReplaceAll("_jer","_CMS_res_j");
+    } else if(syst.BeginsWith("_btag")) {
+        syst.ReplaceAll("_btag","_CMS_eff_b");
+    } else if(syst.BeginsWith("_pu" )) {
+        syst.ReplaceAll("_pu", "_CMS_zllwimps_pu");
+    } else if(syst.BeginsWith("_les" )) {
+        if(channel.Contains("ee")) syst.ReplaceAll("_les", "_CMS_scale_e");
+        if(channel.Contains("mumu")) syst.ReplaceAll("_les", "_CMS_scale_m");
+    } else if(syst.BeginsWith("_umet" )) {
+        syst.ReplaceAll("_umet", "_CMS_scale_met");
+    } else if(syst.BeginsWith("_qcdscale")) {
+        if ( proc.Contains("ZZ") || proc.Contains("WZ") )  syst.ReplaceAll("_qcdscale", "_QCDscale_VV");
+        else if ( proc.Contains("VVV") ) 		       syst.ReplaceAll("_qcdscale", "_QCDscale_VVV");
+        else if ( proc.Contains("ewk_s_dm") )              syst.ReplaceAll("_qcdscale", "_QCDscale_EWKDM");
+        else if ( proc.Contains("UnPart") )		       syst.ReplaceAll("_qcdscale", "_QCDscale_Unpart");
+        else if ( proc.Contains("add") )                   syst.ReplaceAll("_qcdscale", "_QCDscale_ADD");
+        else if ( proc.Contains("dm") && (proc.Contains("mv") || proc.Contains("ma")) )                   syst.ReplaceAll("_qcdscale", "_QCDscale_VDM");
+        else syst.ReplaceAll("_qcdscale", "_QCDscale");
+    } else if(syst.BeginsWith("_pdf")) {
+        syst.ReplaceAll("_pdf", "_pdf_qqbar");
+    } else if(syst.BeginsWith("_qqZZewk")) {
+        syst.ReplaceAll("_qqZZewk", "_qqZZewkcorr");
+    } else {
+        syst="_CMS_zllwimps"+syst;
+    }
+}
+void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bin, TString& ch, std::vector<TString>& systs, std::vector<TH1*>& hshapes)
+{
+    // Remove special characters, apply formatting, etc.
+    rename_process(proc);
 
     for(unsigned int i=0; i<systs.size(); i++) {
         TString syst   = systs[i];
         TH1*    hshape = hshapes[i];
         hshape->SetDirectory(0);
 
+        // Skip uncertainties we do not want to consider
+        if(syst.BeginsWith("_umet" )) continue;
+
         //Do Renaming and cleaning
-        syst.ReplaceAll("down","Down");
-        syst.ReplaceAll("up","Up");
-
-        if(syst=="") {
-            syst="";
-        } else if(syst.BeginsWith("_jes")) {
-            //continue; // skip
-            syst.ReplaceAll("_jes","_CMS_scale_j");
-        } else if(syst.BeginsWith("_jer")) {
-            syst.ReplaceAll("_jer","_CMS_res_j");
-        } else if(syst.BeginsWith("_btag")) {
-            syst.ReplaceAll("_btag","_CMS_eff_b");
-        } else if(syst.BeginsWith("_pu" )) {
-            syst.ReplaceAll("_pu", "_CMS_zllwimps_pu");
-        } else if(syst.BeginsWith("_les" )) {
-            if(ch.Contains("ee")) syst.ReplaceAll("_les", "_CMS_scale_e");
-            if(ch.Contains("mumu")) syst.ReplaceAll("_les", "_CMS_scale_m");
-        } else if(syst.BeginsWith("_umet" )) {
-            //syst.ReplaceAll("_umet", "_CMS_scale_met");
-            continue; // skip
-        } else if(syst.BeginsWith("_qcdscale")) {
-            if ( proc.Contains("ZZ") || proc.Contains("WZ") )  syst.ReplaceAll("_qcdscale", "_QCDscale_VV");
-            else if ( proc.Contains("VVV") ) 		       syst.ReplaceAll("_qcdscale", "_QCDscale_VVV");
-            else if ( proc.Contains("ewk_s_dm") )              syst.ReplaceAll("_qcdscale", "_QCDscale_EWKDM");
-            else if ( proc.Contains("UnPart") )		       syst.ReplaceAll("_qcdscale", "_QCDscale_Unpart");
-            else if ( proc.Contains("add") )                   syst.ReplaceAll("_qcdscale", "_QCDscale_ADD");
-            else if ( proc.Contains("dm") && (proc.Contains("mv") || proc.Contains("ma")) )                   syst.ReplaceAll("_qcdscale", "_QCDscale_VDM");
-            else syst.ReplaceAll("_qcdscale", "_QCDscale");
-
-        } else if(syst.BeginsWith("_pdf")) {
-            syst.ReplaceAll("_pdf", "_pdf_qqbar");
-	} else if(syst.BeginsWith("_qqZZewk")) {
-	    syst.ReplaceAll("_qqZZewk", "_qqZZewkcorr");
-        } else {
-            syst="_CMS_zllwimps"+syst;
-        }
-
+        rename_systematic( syst, proc, ch );
         double systUncertainty = hshape->GetBinError(0);
         hshape->SetBinError(0,0);
 
         //If cut&count keep only 1 bin in the histo
         if(!shape) {
-            //hshape = hshape->Rebin(hshape->GetXaxis()->GetNbins(), TString(hshape->GetName())+"_Rebin");
             hshape = hshape->Rebin(hshape->GetXaxis()->GetNbins());
             //make sure to also count the underflow and overflow
             double bin  = hshape->GetBinContent(0) + hshape->GetBinContent(1) + hshape->GetBinContent(2);
-            double bine = sqrt(hshape->GetBinError(0)*hshape->GetBinError(0) + hshape->GetBinError(1)*hshape->GetBinError(1) + hshape->GetBinError(2)*hshape->GetBinError(2));
+            double bine = sqrt(pow(hshape->GetBinError(0),2) + pow(hshape->GetBinError(1),2) + pow(hshape->GetBinError(2),2));
             hshape->SetBinContent(0,0);
             hshape->SetBinError  (0,0);
             hshape->SetBinContent(1,bin);
@@ -1504,10 +1434,7 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
             } else {
                 hshape->Write(proc+postfix);
 
-                TString zjetsch="";
-                if(ch.Contains("eq0jets")) zjetsch="_eq0jets";
-                if(ch.Contains("eq1jets")) zjetsch="_eq1jets";
-                if(ch.Contains("lesq1jets")) zjetsch="_lesq1jets";
+;
 
                 if(hshape->Integral()>0) {
                     hshape->SetName(proc+syst);
@@ -1518,6 +1445,10 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
                         statdown=(TH1 *)hshape->Clone(proc+"_stat"+ch+proc+"Down");
                     }
                     if(proc.Contains("Zjets")) {
+                        TString zjetsch="";
+                        if(ch.Contains("eq0jets")) zjetsch="_eq0jets";
+                        if(ch.Contains("eq1jets")) zjetsch="_eq1jets";
+                        if(ch.Contains("lesq1jets")) zjetsch="_lesq1jets";
                         statup=(TH1 *)hshape->Clone(proc+"_stat"+ch+zjetsch+proc+"Up");
                         statdown=(TH1 *)hshape->Clone(proc+"_stat"+ch+zjetsch+proc+"Down");
                     }
@@ -1534,44 +1465,19 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
                     bool useBinbyBin(true);
                     //############################################################################
                     useBinbyBin &= (proc.Contains("ZH") || proc.Contains("ZZ") || proc.Contains("WZ") || proc.Contains("WWTopZtautau") ||
-                                    proc.Contains("D1") || proc.Contains("D4") || proc.Contains("D5") ||
                                     proc.Contains("ewk_s_dm") || proc.Contains("VVV") || proc.Contains("Zjets") ||
-                                    proc.Contains("dm") ||  proc.Contains("add") || proc.Contains("UnPart") ||
-                                    proc.Contains("D8") ||  proc.Contains("D9") || proc.Contains("C3")
+                                    proc.Contains("dm") ||  proc.Contains("add") || proc.Contains("UnPart")
                                    );
                     useBinbyBin &= (shape);
 
-
+                    TString full_syst_name("CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix);
                     if(!useBinbyBin) {
-
-                        if(proc.Contains("WWTopZtautau")) {
-                            statup  ->Write(proc+postfix+"_CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"Up");
-                            statdown->Write(proc+postfix+"_CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"Down");
-                        } else if(proc.Contains("Zjets")) {
-                            statup  ->Write(proc+postfix+"_CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"Up");
-                            statdown->Write(proc+postfix+"_CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"Down");
+                        statup  ->Write(proc+postfix+"_"+full_syst_name+"Up");
+                        statdown->Write(proc+postfix+"_"+full_syst_name+"Down");
+                        if(shape) {
+                            dci.systs[full_syst_name][RateKey_t(proc,ch)]=1.0;
                         } else {
-                            statup  ->Write(proc+postfix+"_CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"Up");
-                            statdown->Write(proc+postfix+"_CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"Down");
-                        }
-
-                        if(shape) { //RENJIE  Jun15
-                            if(proc.Contains("WWTopZtautau"))
-                                //cout << "Skiping " << proc <<" stat" << endl;
-                                //cout << "removing EM stat" << endl;
-                                dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix][RateKey_t(proc,ch)]=1.0;
-                            else if(proc.Contains("Zjets"))
-                                dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix][RateKey_t(proc,ch)]=1.0;
-                            else
-                                dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix][RateKey_t(proc,ch)]=1.0;
-                        } else {
-                            if(proc.Contains("WWTopZtautau"))
-                                //cout << "removing EM stat" << endl;
-                                dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
-                            else if(proc.Contains("Zjets"))
-                                dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
-                            else
-                                dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
+                            dci.systs[full_syst_name][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
                         }
                     }
 
@@ -1618,11 +1524,11 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
 
                             if(shape) {
                                 if(proc.Contains("WWTopZtautau")) dci.systs["CMS_zllwimps_stat_"+proc+systpostfix+"_Bin"+Bin][RateKey_t(proc,ch)]=1.0;
-                                else dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"_Bin"+Bin][RateKey_t(proc,ch)]=1.0;
+                                else dci.systs[full_syst_name+"_Bin"+Bin][RateKey_t(proc,ch)]=1.0;
 
                             } else {
                                 if(proc.Contains("WWTopZtautau")) dci.systs["CMS_zllwimps_stat_"+proc+systpostfix+"_Bin"+Bin][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
-                                else dci.systs["CMS_zllwimps_stat_"+ch+"_"+proc+systpostfix+"_Bin"+Bin][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
+                                else dci.systs[full_syst_name+"_Bin"+Bin][RateKey_t(proc,ch)]=(statup->Integral()/hshapes[0]->Integral());
                             }
 
                         }
@@ -1704,17 +1610,17 @@ void convertHistosForLimits_core(DataCardInputs& dci, TString& proc, TString& bi
 
 }//convertHistosForLimits_core END
 
-void doDYextrapolation(std::vector<TString>& selCh,map<TString, Shape_t>& allShapes, TString mainHisto, TString DY_EXTRAPOL_SHAPES, float DY_EXTRAPOL, bool isleftCR)
+void doDYextrapolation(std::vector<TString>& signal_channels,map<TString, Shape_t>& allShapes, TString mainHisto, TString DY_EXTRAPOL_SHAPES, float DY_EXTRAPOL, bool isleftCR)
 {
     cout << "\n#################### doDYextrapolation #######################\n" << endl;
     for(size_t b=0; b<AnalysisBins.size(); b++) {
-        for(size_t i=0; i<selCh.size(); i++) {
+        for(size_t i=0; i<signal_channels.size(); i++) {
 
             THStack *stack = new THStack("stack","stack");
 
-            Shape_t& shapeChan = allShapes.find(selCh[i]+AnalysisBins[b]+DY_EXTRAPOL_SHAPES)->second;
+            Shape_t& shapeChan = allShapes.find(signal_channels[i]+AnalysisBins[b]+DY_EXTRAPOL_SHAPES)->second;
             TH1* hChan_data=shapeChan.data;
-            cout << "DY extrapolation shapes: " << selCh[i]+AnalysisBins[b]+"_"+DY_EXTRAPOL_SHAPES << endl;
+            cout << "DY extrapolation shapes: " << signal_channels[i]+AnalysisBins[b]+"_"+DY_EXTRAPOL_SHAPES << endl;
             cout << "Bins: " << hChan_data->GetXaxis()->GetNbins() << endl;
 
             TH1* hChan_MCnonDY = (TH1*)shapeChan.totalBckg->Clone("hChan_totMCnonDY");
@@ -1790,12 +1696,12 @@ void doDYextrapolation(std::vector<TString>& selCh,map<TString, Shape_t>& allSha
             stack->GetXaxis()->SetTitle(hChan_data->GetXaxis()->GetTitle());
             stack->GetYaxis()->SetTitle("Events");
 
-            c->SaveAs(selCh[i]+AnalysisBins[b]+"_"+DY_EXTRAPOL_SHAPES+"_DYEXTRAPOL.png");
+            c->SaveAs(signal_channels[i]+AnalysisBins[b]+"_"+DY_EXTRAPOL_SHAPES+"_DYEXTRAPOL.png");
             delete c;
 
 
             //add data-driven backgrounds
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeChan_SI = allShapes.find(signal_channels[i]+AnalysisBins[b]+mainHisto)->second;
             TH1* hChan_DATADY = NULL;
 
             for(size_t ibckg=0; ibckg<shapeChan_SI.bckg.size(); ibckg++) {
@@ -1828,21 +1734,21 @@ void doDYextrapolation(std::vector<TString>& selCh,map<TString, Shape_t>& allSha
 }
 
 
-void doWjetsBackground(std::vector<TString>& selCh,map<TString, Shape_t>& allShapes, TString mainHisto)
+void doWjetsBackground(std::vector<TString>& signal_channels,map<TString, Shape_t>& allShapes, TString mainHisto)
 {
     cout << "\n#################### doWjetsBackground #######################\n" << endl;
     for(size_t b=0; b<AnalysisBins.size(); b++) {
-        for(size_t i=0; i<selCh.size(); i++) {
-            TString label_Syst = selCh[i]+AnalysisBins[b];
+        for(size_t i=0; i<signal_channels.size(); i++) {
+            TString label_Syst = signal_channels[i]+AnalysisBins[b];
 
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
-            Shape_t& shapeChan_Wjet = allShapes.find(selCh[i]+AnalysisBins[b]+"FR_WjetCtrl_"+mainHisto)->second;
+            Shape_t& shapeChan_SI = allShapes.find(signal_channels[i]+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeChan_Wjet = allShapes.find(signal_channels[i]+AnalysisBins[b]+"FR_WjetCtrl_"+mainHisto)->second;
             TH1* hChan_data=shapeChan_Wjet.data;
 
             double valerr_hChan_data, val_hChan_data;
             val_hChan_data = hChan_data->IntegralAndError(1,hChan_data->GetXaxis()->GetNbins(),valerr_hChan_data);
 
-            cout << "Wjets Shapes: " << selCh[i]+AnalysisBins[b]+"_FR_WjetCtrl_"+mainHisto << "\t"
+            cout << "Wjets Shapes: " << signal_channels[i]+AnalysisBins[b]+"_FR_WjetCtrl_"+mainHisto << "\t"
                  << val_hChan_data << endl;
 
             TH1* h_Wjet = NULL;
@@ -1903,22 +1809,22 @@ void doWjetsBackground(std::vector<TString>& selCh,map<TString, Shape_t>& allSha
 
 
 
-void doQCDBackground(std::vector<TString>& selCh,map<TString, Shape_t>& allShapes, TString mainHisto)
+void doQCDBackground(std::vector<TString>& signal_channels,map<TString, Shape_t>& allShapes, TString mainHisto)
 {
     cout << "\n#################### doQCDBackground #######################\n" << endl;
     for(size_t b=0; b<AnalysisBins.size(); b++) {
-        for(size_t i=0; i<selCh.size(); i++) {
+        for(size_t i=0; i<signal_channels.size(); i++) {
 
 
-            cout << "QCD Shapes: " << selCh[i]+AnalysisBins[b]+mainHisto << endl;
+            cout << "QCD Shapes: " << signal_channels[i]+AnalysisBins[b]+mainHisto << endl;
 
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeChan_SI = allShapes.find(signal_channels[i]+AnalysisBins[b]+mainHisto)->second;
             TH1* hChan_data=shapeChan_SI.data;
 
             double valerr_hChan_data, val_hChan_data;
             val_hChan_data = hChan_data->IntegralAndError(1,hChan_data->GetXaxis()->GetNbins(),valerr_hChan_data);
 
-            cout << "QCD Shapes: " << selCh[i]+AnalysisBins[b]+mainHisto << "\t"
+            cout << "QCD Shapes: " << signal_channels[i]+AnalysisBins[b]+mainHisto << "\t"
                  << val_hChan_data << endl;
 
         }
@@ -1933,7 +1839,7 @@ void doQCDBackground(std::vector<TString>& selCh,map<TString, Shape_t>& allShape
 
 
 
-void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Shape_t>& allShapes, TString mainHisto, bool isMCclosureTest)
+void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_channel,map<TString, Shape_t>& allShapes, TString mainHisto, bool isMCclosureTest)
 {
 
     if(isMCclosureTest) cout << "\n############ dodataDrivenWWtW (MCclosureTest) ###############\n" << endl;
@@ -1959,7 +1865,7 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
     }
     fprintf(pFile,"\\hline\n");
 
-    for(size_t b=0; b<AnalysisBins.size(); b++) {
+    for( auto const & bin : AnalysisBins ) {
 
 
         double N_data_ee(0.), N_data_mm(0.), N_data_em(0.);
@@ -1970,25 +1876,27 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
         double Err_mc_ee(0.), Err_mc_mm(0.);
         double Err_mcsubtr_em(0.);
 
-        for(size_t i=0; i<selCh.size(); i++) {
+        for(auto const & channel : signal_channels) {
 
-            cout << ctrlCh+AnalysisBins[b]+mainHisto << " : " << selCh[i]+AnalysisBins[b]+mainHisto << endl;
+            cout << control_channel+bin+mainHisto << " : " << channel+bin+mainHisto << endl;
 
-            Shape_t& shapeCtrl_SI = allShapes.find(ctrlCh+AnalysisBins[b]+mainHisto)->second;
-            TH1* hCtrl_data=shapeCtrl_SI.data;
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
-            TH1* hChan_data=shapeChan_SI.data;
+            Shape_t& control_region_shapes = allShapes.find(control_channel+bin+mainHisto)->second;
+            Shape_t& signal_region_shapes = allShapes.find(channel+bin+mainHisto)->second;
 
+            TH1 *hCtrl_data(0), *hChan_data(0);
             if(isMCclosureTest) {
-                hCtrl_data=shapeCtrl_SI.totalBckg;
-                hChan_data=shapeChan_SI.totalBckg;
+                hCtrl_data=control_region_shapes.totalBckg;
+                hChan_data=signal_region_shapes.totalBckg;
+            } else {
+                hCtrl_data=control_region_shapes.data;
+                hChan_data=signal_region_shapes.data;
             }
 
 
-            TH1* hCtrl_MCnonNRB = (TH1*)shapeCtrl_SI.totalBckg->Clone("hCtrl_MCnonNRB");
-            TH1* hCtrl_MCNRB = (TH1*)shapeCtrl_SI.totalBckg->Clone("hCtrl_MCNRB");
-            TH1* hChan_MCnonNRB = (TH1*)shapeChan_SI.totalBckg->Clone("hChan_MCnonNRB");
-            TH1* hChan_MCNRB = (TH1*)shapeChan_SI.totalBckg->Clone("hChan_MCNRB");
+            TH1* hCtrl_MCnonNRB = (TH1*)control_region_shapes.totalBckg->Clone("hCtrl_MCnonNRB");
+            TH1* hCtrl_MCNRB = (TH1*)control_region_shapes.totalBckg->Clone("hCtrl_MCNRB");
+            TH1* hChan_MCnonNRB = (TH1*)signal_region_shapes.totalBckg->Clone("hChan_MCnonNRB");
+            TH1* hChan_MCNRB = (TH1*)signal_region_shapes.totalBckg->Clone("hChan_MCNRB");
             hCtrl_MCnonNRB->Reset();
             hCtrl_MCNRB->Reset();
             hChan_MCnonNRB->Reset();
@@ -1996,40 +1904,40 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
 
 
             //emu channel
-            for(size_t ibckg=0; ibckg<shapeCtrl_SI.bckg.size(); ibckg++) {
-                TString proc(shapeCtrl_SI.bckg[ibckg]->GetTitle());
+            for(TH1* background_shape : control_region_shapes.bckg) {
+                TString proc(background_shape->GetTitle());
                 if(proc.Contains("ZZ#rightarrow 2l2#nu")
                         || proc.Contains("WZ#rightarrow 3l#nu")
                         || proc.Contains("Z+jets")
                         || proc.Contains("W+jets")
                   ) {
-                    hCtrl_MCnonNRB->Add(shapeCtrl_SI.bckg[ibckg], 1);
+                    hCtrl_MCnonNRB->Add(background_shape, 1);
                 }
                 if(proc.Contains("t#bar{t}")
                         || proc.Contains("Single top")
                         || proc.Contains("WW#rightarrow l#nul#nu")
                         || proc.Contains("Z#rightarrow #tau#tau")
                   ) {
-                    hCtrl_MCNRB->Add(shapeCtrl_SI.bckg[ibckg], 1);
+                    hCtrl_MCNRB->Add(background_shape, 1);
                 }
             }
 
             //ee, mumu channel
-            for(size_t ibckg=0; ibckg<shapeChan_SI.bckg.size(); ibckg++) {
-                TString proc(shapeChan_SI.bckg[ibckg]->GetTitle());
+            for(TH1* background_shape : signal_region_shapes.bckg) {
+                TString proc(background_shape->GetTitle());
                 if(proc.Contains("ZZ#rightarrow 2l2#nu")
                         || proc.Contains("WZ#rightarrow 3l#nu")
                         || proc.Contains("Z+jets")
                         || proc.Contains("W+jets")
                   ) {
-                    hChan_MCnonNRB->Add(shapeChan_SI.bckg[ibckg], 1);
+                    hChan_MCnonNRB->Add(background_shape, 1);
                 }
                 if(proc.Contains("t#bar{t}")
                         || proc.Contains("Single top")
                         || proc.Contains("WW#rightarrow l#nul#nu")
                         || proc.Contains("Z#rightarrow #tau#tau")
                   ) {
-                    hChan_MCNRB->Add(shapeChan_SI.bckg[ibckg], 1);
+                    hChan_MCNRB->Add(background_shape, 1);
                 }
             }
 
@@ -2061,13 +1969,13 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
                  << "val_hChan_MCNRB:	" << val_hChan_MCNRB << endl;
 
 
-            if(selCh[i].Contains("ee")) {
+            if(channel.Contains("ee")) {
                 N_data_ee = val_hChan_data;
                 N_mc_ee = val_hChan_MCNRB;
                 Err_data_ee = valerr_hChan_data;
                 Err_mc_ee = valerr_hChan_MCNRB;
             }
-            if(selCh[i].Contains("mumu")) {
+            if(channel.Contains("mumu")) {
                 N_data_mm = val_hChan_data;
                 N_mc_mm = val_hChan_MCNRB;
                 Err_data_mm = valerr_hChan_data;
@@ -2113,17 +2021,17 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
             double sysEE = fabs(N_est_ee-N_mc_ee)/N_mc_ee;
             double sysMM = fabs(N_est_mm-N_mc_mm)/N_mc_mm;
 
-            cout << "AnalysisBins: " << AnalysisBins[b] << " sysEE: " << sysEE << "\t" << "sysMM: " << sysMM << endl;
+            cout << "AnalysisBins: " << bin << " sysEE: " << sysEE << "\t" << "sysMM: " << sysMM << endl;
 
-            if(AnalysisBins[b] == "eq0jets") {
+            if(bin == "eq0jets") {
                 WWtopSyst_ee0jet = sysEE;
                 WWtopSyst_mm0jet = sysMM;
             }
-            if(AnalysisBins[b] == "eq1jets") {
+            if(bin == "eq1jets") {
                 WWtopSyst_ee1jet = sysEE;
                 WWtopSyst_mm1jet = sysMM;
             }
-            if(AnalysisBins[b] == "lesq1jets") {
+            if(bin == "lesq1jets") {
                 WWtopSyst_eelesq1jet = sysEE;
                 WWtopSyst_mmlesq1jet = sysMM;
             }
@@ -2135,7 +2043,7 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
 
         if(isMCclosureTest) {
             fprintf(pFile,"%s & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f  \\\\ \n",
-                    (AnalysisBins[b]).Data(),
+                    bin.Data(),
                     N_data_ee,Err_data_ee,
                     N_data_mm,Err_data_mm,
                     N_data_em,Err_data_em,
@@ -2146,7 +2054,7 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
                    );
         } else {
             fprintf(pFile,"%s & %.0f $\\pm$ %.2f & %.0f $\\pm$ %.2f & %.0f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f & %.2f $\\pm$ %.2f  \\\\ \n",
-                    (AnalysisBins[b]).Data(),
+                    bin.Data(),
                     N_data_ee,Err_data_ee,
                     N_data_mm,Err_data_mm,
                     N_data_em,Err_data_em,
@@ -2163,23 +2071,23 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
 
         if(!isMCclosureTest) {
             //add data-driven backgrounds
-            for(size_t i=0; i<selCh.size(); i++) {
-                TString labelChan = selCh[i]+AnalysisBins[b];
-                Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
-                TH1* hChan_MCNRB = (TH1*)shapeChan_SI.totalBckg->Clone("hChan_MCNRB");
+            for(auto const & channel : signal_channels) {
+                TString labelChan = channel+bin;
+                Shape_t& signal_region_shapes = allShapes.find(channel+bin+mainHisto)->second;
+                TH1* hChan_MCNRB = (TH1*)signal_region_shapes.totalBckg->Clone("hChan_MCNRB");
                 hChan_MCNRB->Reset();
 
                 //ee, mumu channel
-                for(size_t ibckg=0; ibckg<shapeChan_SI.bckg.size(); ibckg++) {
-                    TString proc(shapeChan_SI.bckg[ibckg]->GetTitle());
+                for(size_t ibckg=0; ibckg<signal_region_shapes.bckg.size(); ibckg++) {
+                    TString proc(signal_region_shapes.bckg[ibckg]->GetTitle());
                     if(proc.Contains("t#bar{t}")
                             || proc.Contains("Single top")
                             || proc.Contains("WW#rightarrow l#nul#nu")
                             || proc.Contains("Z#rightarrow #tau#tau")
                       ) {
-                        hChan_MCNRB->Add(shapeChan_SI.bckg[ibckg], 1);
+                        hChan_MCNRB->Add(signal_region_shapes.bckg[ibckg], 1);
                         //remove the separate parts
-                        shapeChan_SI.bckg.erase(shapeChan_SI.bckg.begin()+ibckg);
+                        signal_region_shapes.bckg.erase(signal_region_shapes.bckg.begin()+ibckg);
                         ibckg--;
 
                     }
@@ -2191,10 +2099,10 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
                 //add the background estimate
 
                 double dataDrivenScale(1.0);
-                if(selCh[i].Contains("ee")) {
+                if(channel.Contains("ee")) {
                     dataDrivenScale = N_est_ee/N_mc_ee;
                 }
-                if(selCh[i].Contains("mumu")) {
+                if(channel.Contains("mumu")) {
                     dataDrivenScale = N_est_mm/N_mc_mm;
                 }
 
@@ -2225,7 +2133,7 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
                 NonResonant->SetBinError(0, Syst_WWTop*NonResonant->Integral());
 
 
-                shapeChan_SI.bckg.push_back(NonResonant);
+                signal_region_shapes.bckg.push_back(NonResonant);
             }
         }
 
@@ -2248,7 +2156,7 @@ void dodataDrivenWWtW(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sh
 }
 
 //
-void doBackgroundSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TString, Shape_t>& allShapes, TString mainHisto, TString sideBandHisto, TString url, JSONWrapper::Object &Root, bool isMCclosureTest)
+void doBackgroundSubtraction(std::vector<TString>& signal_channels,TString control_channel,map<TString, Shape_t>& allShapes, TString mainHisto, TString sideBandHisto, TString url, JSONWrapper::Object &Root, bool isMCclosureTest)
 {
 
     cout << "########################## doBackgroundSubtraction ##########################" << endl;
@@ -2270,23 +2178,23 @@ void doBackgroundSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TStr
         fprintf(pFile,"%s\\\\\\hline\n", Cname.c_str());
     }
 
-    for(size_t i=0; i<selCh.size(); i++) {
+    for(size_t i=0; i<signal_channels.size(); i++) {
         for(size_t b=0; b<AnalysisBins.size(); b++) {
             Lcol += " |c";
-            Lchan += string(" &")+selCh[i]+string(" - ")+AnalysisBins[b];
-            Cval   = selCh[i]+string(" - ")+AnalysisBins[b];
+            Lchan += string(" &")+signal_channels[i]+string(" - ")+AnalysisBins[b];
+            Cval   = signal_channels[i]+string(" - ")+AnalysisBins[b];
 
 
-            Shape_t& shapeCtrl_SB = allShapes.find(ctrlCh+AnalysisBins[b]+sideBandHisto)->second;
+            Shape_t& shapeCtrl_SB = allShapes.find(control_channel+AnalysisBins[b]+sideBandHisto)->second;
             TH1* hCtrl_SB=shapeCtrl_SB.data;
 
-            Shape_t& shapeCtrl_SI = allShapes.find(ctrlCh+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeCtrl_SI = allShapes.find(control_channel+AnalysisBins[b]+mainHisto)->second;
             TH1* hCtrl_SI=shapeCtrl_SI.data;
 
-            Shape_t& shapeChan_SB = allShapes.find(selCh[i]+AnalysisBins[b]+sideBandHisto)->second;
+            Shape_t& shapeChan_SB = allShapes.find(signal_channels[i]+AnalysisBins[b]+sideBandHisto)->second;
             TH1* hChan_SB=shapeChan_SB.data;
 
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeChan_SI = allShapes.find(signal_channels[i]+AnalysisBins[b]+mainHisto)->second;
 
 
             if(isMCclosureTest) {
@@ -2374,7 +2282,7 @@ void doBackgroundSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TStr
                 NonResonant = (TH1*)hCtrl_SI->Clone("Top/WW/W+Jets (data)");
                 NonResonant->SetTitle("Top/WW/W+Jets (data)");
             } else if(subNRB2012) {
-                Shape_t& shapeChan_BTag = allShapes.find(selCh[i]+mainHisto+"BTagSB")->second;
+                Shape_t& shapeChan_BTag = allShapes.find(signal_channels[i]+mainHisto+"BTagSB")->second;
                 NonResonant = (TH1*)shapeChan_BTag.data->Clone("Top (data)");
                 NonResonant->SetTitle("Top (data)");
             } else {
@@ -2408,7 +2316,7 @@ void doBackgroundSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TStr
 
             Cval   += string(" &") + toLatexRounded(valval,valvalerr);
 
-            cout << ctrlCh+AnalysisBins[b]+mainHisto << ": " << valval << endl;
+            cout << control_channel+AnalysisBins[b]+mainHisto << ": " << valval << endl;
             for(int b=1; b<=NonResonant->GetXaxis()->GetNbins()+1; b++) {
                 double val = NonResonant->GetBinContent(b);
                 double subtr = emu_mcnonNRB->GetBinContent(b);
@@ -2512,7 +2420,7 @@ void doBackgroundSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TStr
 
 
 
-void doWZSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TString, Shape_t>& allShapes, TString mainHisto, TString sideBandHisto)
+void doWZSubtraction(std::vector<TString>& signal_channels,TString control_channel,map<TString, Shape_t>& allShapes, TString mainHisto, TString sideBandHisto)
 {
     string Ccol   = "\\begin{tabular}{|l|c|c|c|c|";
     string Cname  = "channel & $\\alpha$ measured & $\\alpha$ used & yield data & yield mc";
@@ -2525,16 +2433,16 @@ void doWZSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sha
         fprintf(pFile,"%s\\\\\\hline\n", Cname.c_str());
     }
 
-    for(size_t i=0; i<selCh.size(); i++) {
+    for(size_t i=0; i<signal_channels.size(); i++) {
         for(size_t b=0; b<AnalysisBins.size(); b++) {
-            Cval   = selCh[i]+string(" - ")+AnalysisBins[b];
+            Cval   = signal_channels[i]+string(" - ")+AnalysisBins[b];
 
-            Shape_t& shapeCtrl_SB = allShapes.find(ctrlCh+AnalysisBins[b]+sideBandHisto)->second;
-            Shape_t& shapeCtrl_SI = allShapes.find(ctrlCh+AnalysisBins[b]+mainHisto)->second;
-            Shape_t& shapeChan_SB = allShapes.find(selCh[i]+AnalysisBins[b]+sideBandHisto)->second;
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeCtrl_SB = allShapes.find(control_channel+AnalysisBins[b]+sideBandHisto)->second;
+            Shape_t& shapeCtrl_SI = allShapes.find(control_channel+AnalysisBins[b]+mainHisto)->second;
+            Shape_t& shapeChan_SB = allShapes.find(signal_channels[i]+AnalysisBins[b]+sideBandHisto)->second;
+            Shape_t& shapeChan_SI = allShapes.find(signal_channels[i]+AnalysisBins[b]+mainHisto)->second;
 
-            fprintf(pFile,"#############%s:\n",(string(" &")+selCh[i]+string(" - ")+AnalysisBins[b]).Data());
+            fprintf(pFile,"#############%s:\n",(string(" &")+signal_channels[i]+string(" - ")+AnalysisBins[b]).Data());
             fprintf(pFile,"MC: em 3leptons=%6.2E  em 2leptons=%6.2E  ll 3leptons=%6.2E  ll 2leptons=%6.2E\n",shapeCtrl_SB.totalBckg->Integral(), shapeCtrl_SI.totalBckg->Integral(), shapeChan_SB.totalBckg->Integral(), shapeChan_SI.totalBckg->Integral());
 
             TH1* histo1=NULL, *histo2=NULL, *histo3=NULL, *histo4=NULL;
@@ -2596,16 +2504,16 @@ void doWZSubtraction(std::vector<TString>& selCh,TString ctrlCh,map<TString, Sha
     }
 }
 
-void BlindData(std::vector<TString>& selCh, map<TString, Shape_t>& allShapes, TString mainHisto, bool addSignal)
+void BlindData(std::vector<TString>& signal_channels, map<TString, Shape_t>& allShapes, TString mainHisto, bool addSignal)
 {
-    for(size_t i=0; i<selCh.size(); i++) {
-        for(size_t b=0; b<AnalysisBins.size(); b++) {
-            Shape_t& shapeChan_SI = allShapes.find(selCh[i]+AnalysisBins[b]+mainHisto)->second;
+    for(auto const & channel : signal_channels) {
+        for(auto const & bin : AnalysisBins) {
+            Shape_t& shapeChan_SI = allShapes.find(channel+bin+mainHisto)->second;
             shapeChan_SI.data->Reset();
             shapeChan_SI.data->Add(shapeChan_SI.totalBckg,1);
             if(addSignal) {
-                for(unsigned int s=0; s<shapeChan_SI.signal.size(); s++) {
-                    shapeChan_SI.data->Add(shapeChan_SI.signal[s], 1);
+                for(auto const & signal_shape : shapeChan_SI.signal) {
+                    shapeChan_SI.data->Add(signal_shape, 1);
                 }
             }
         }
