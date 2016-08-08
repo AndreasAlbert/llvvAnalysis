@@ -45,6 +45,9 @@ double WWtopSyst_eelesq1jet = 0.;
 double WWtopSyst_mm0jet = 0.;
 double WWtopSyst_mm1jet = 0.;
 double WWtopSyst_mmlesq1jet = 0.;
+double WWtopSyst_ll0jet = 0.;
+double WWtopSyst_ll1jet = 0.;
+double WWtopSyst_lllesq1jet = 0.;
 
 double WjetsSyst_ee = 0.;
 double WjetsSyst_mm = 0.;
@@ -433,7 +436,7 @@ int main(int argc, char* argv[])
     if(Channels.size()==0) {
         Channels.push_back("ee");
         Channels.push_back("mumu");
-        //Channels.push_back("ll"); //RENJIE, add all
+        Channels.push_back("ll"); //RENJIE, add all
     }
 
     initNormalizationSysts();
@@ -1868,12 +1871,12 @@ void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_chan
     for( auto const & bin : AnalysisBins ) {
 
 
-        double N_data_ee(0.), N_data_mm(0.), N_data_em(0.);
-        double N_mc_ee(0.), N_mc_mm(0.);
+        double N_data_ee(0.), N_data_mm(0.), N_data_ll(0.), N_data_em(0.);
+        double N_mc_ee(0.), N_mc_mm(0.),N_mc_ll(0.);
         double N_mcsubtr_em(0.);
 
-        double Err_data_ee(0.), Err_data_mm(0.), Err_data_em(0.);
-        double Err_mc_ee(0.), Err_mc_mm(0.);
+        double Err_data_ee(0.), Err_data_mm(0.),Err_data_ll(0.), Err_data_em(0.);
+        double Err_mc_ee(0.), Err_mc_mm(0.),Err_mc_ll(0.);
         double Err_mcsubtr_em(0.);
 
         for(auto const & channel : signal_channels) {
@@ -1981,7 +1984,13 @@ void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_chan
                 Err_data_mm = valerr_hChan_data;
                 Err_mc_mm = valerr_hChan_MCNRB;
             }
-            if(ctrlCh.Contains("emu")) {
+            if(channel.Contains("ll")) {
+                N_data_ll = val_hChan_data;
+                N_mc_ll = val_hChan_MCNRB;
+                Err_data_ll = valerr_hChan_data;
+                Err_mc_ll = valerr_hChan_MCNRB;
+            }
+            if(control_channel.Contains("emu")) {
                 N_data_em = val_hCtrl_data;
                 N_mcsubtr_em = val_hCtrl_MCnonNRB;
                 Err_data_em = valerr_hCtrl_data;
@@ -1995,6 +2004,7 @@ void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_chan
         cout << endl;
         cout << "N_data_ee: " << N_data_ee << "\t"
              << "N_data_mm: " << N_data_mm << "\t"
+             << "N_data_ll: " << N_data_ll << "\t"
              << "N_data_em: " << N_data_em << "\t"
              << "N_mcsubtr_em: " << N_mcsubtr_em << endl;
 
@@ -2004,36 +2014,42 @@ void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_chan
         double Err_data_corr = sqrt(pow(Err_data_em,2)+pow(Err_mcsubtr_em,2));
         double N_est_ee = N_data_corr*k_ee;
         double N_est_mm = N_data_corr*k_mm;
+        double N_est_ll = N_est_ee + N_est_mm;
 
+        double Err_est_ee = sqrt( pow(Err_data_corr,2)*N_data_ee/(4*N_data_mm)
+                                  + pow(N_data_corr,2)*(pow(Err_data_ee/N_data_ee,2)+pow(Err_data_mm/N_data_mm,2))*(N_data_ee/(16*N_data_mm)) );
 
-        double Err_est_ee = sqrt( (pow(Err_data_em,2)+pow(Err_mcsubtr_em,2))*N_data_ee/(4*N_data_mm)
-                                  + pow(N_data_em-N_mcsubtr_em,2)*(pow(Err_data_ee/N_data_ee,2)+pow(Err_data_mm/N_data_mm,2))*(N_data_ee/(16*N_data_mm)) );
+        double Err_est_mm = sqrt( pow(Err_data_corr,2)*N_data_mm/(4*N_data_ee)
+                                  + pow(N_data_corr,2)*(pow(Err_data_ee/N_data_ee,2)+pow(Err_data_mm/N_data_mm,2))*(N_data_mm/(16*N_data_ee)) );
 
-        double Err_est_mm = sqrt( (pow(Err_data_em,2)+pow(Err_mcsubtr_em,2))*N_data_mm/(4*N_data_ee)
-                                  + pow(N_data_em-N_mcsubtr_em,2)*(pow(Err_data_ee/N_data_ee,2)+pow(Err_data_mm/N_data_mm,2))*(N_data_mm/(16*N_data_ee)) );
-
-
+        double Err_est_ll = sqrt( pow(Err_data_corr,2)*N_data_mm/(4*N_data_ee)
+                                  + pow(N_data_corr,2)*(pow(Err_data_ee/N_data_ee,2)+pow(Err_data_mm/N_data_mm,2))*(N_data_mm/(16*N_data_ee) + N_data_ee/(16*N_data_mm)) );
 
         cout << "N_est_ee: " << N_est_ee << "\t"
-             << "N_est_mm: " << N_est_mm << endl;
+             << "N_est_mm: " << N_est_mm << "\t"
+             << "N_est_ll: " << N_est_ll << endl;
 
         if(isMCclosureTest) {
             double sysEE = fabs(N_est_ee-N_mc_ee)/N_mc_ee;
             double sysMM = fabs(N_est_mm-N_mc_mm)/N_mc_mm;
+            double sysLL = fabs(N_est_ll-N_mc_ll)/N_mc_ll;
 
-            cout << "AnalysisBins: " << bin << " sysEE: " << sysEE << "\t" << "sysMM: " << sysMM << endl;
+            cout << "AnalysisBins: " << bin << " sysEE: " << sysEE << "\t" << "sysMM: " << sysMM << "\t" << "sysLL: " << sysLL << endl;
 
             if(bin == "eq0jets") {
                 WWtopSyst_ee0jet = sysEE;
                 WWtopSyst_mm0jet = sysMM;
+                WWtopSyst_ll0jet = sysLL;
             }
             if(bin == "eq1jets") {
                 WWtopSyst_ee1jet = sysEE;
                 WWtopSyst_mm1jet = sysMM;
+                WWtopSyst_ll1jet = sysLL;
             }
             if(bin == "lesq1jets") {
                 WWtopSyst_eelesq1jet = sysEE;
                 WWtopSyst_mmlesq1jet = sysMM;
+                WWtopSyst_lllesq1jet = sysLL;
             }
         }
 
@@ -2105,6 +2121,9 @@ void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_chan
                 if(channel.Contains("mumu")) {
                     dataDrivenScale = N_est_mm/N_mc_mm;
                 }
+                if(channel.Contains("ll")) {
+                    dataDrivenScale = N_est_ll/N_mc_ll;
+                }
 
                 cout << "DATA/MC scale factors: " << dataDrivenScale << endl;
 
@@ -2123,10 +2142,13 @@ void dodataDrivenWWtW(std::vector<TString>& signal_channels,TString control_chan
                 double Syst_WWTop(0.);
                 if(labelChan.Contains("eeeq0jets")) 	Syst_WWTop = sqrt( pow(Err_est_ee/N_est_ee, 2) + pow(WWtopSyst_ee0jet, 2) );
                 if(labelChan.Contains("mumueq0jets")) 	Syst_WWTop = sqrt( pow(Err_est_mm/N_est_mm, 2) + pow(WWtopSyst_mm0jet, 2) );
+                if(labelChan.Contains("lleq0jets")) 	Syst_WWTop = sqrt( pow(Err_est_ll/N_est_ll, 2) + pow(WWtopSyst_ll0jet, 2) );
                 if(labelChan.Contains("eeeq1jets")) 	Syst_WWTop = sqrt( pow(Err_est_ee/N_est_ee, 2) + pow(WWtopSyst_ee1jet, 2) );
                 if(labelChan.Contains("mumueq1jets")) 	Syst_WWTop = sqrt( pow(Err_est_mm/N_est_mm, 2) + pow(WWtopSyst_mm1jet, 2) );
+                if(labelChan.Contains("lleq1jets")) 	Syst_WWTop = sqrt( pow(Err_est_ll/N_est_ll, 2) + pow(WWtopSyst_ll1jet, 2) );
                 if(labelChan.Contains("eelesq1jets")) 	Syst_WWTop = sqrt( pow(Err_est_ee/N_est_ee, 2) + pow(WWtopSyst_eelesq1jet, 2) );
                 if(labelChan.Contains("mumulesq1jets")) Syst_WWTop = sqrt( pow(Err_est_mm/N_est_mm, 2) + pow(WWtopSyst_mmlesq1jet, 2) );
+                if(labelChan.Contains("lllesq1jets"))   Syst_WWTop = sqrt( pow(Err_est_ll/N_est_ll, 2) + pow(WWtopSyst_lllesq1jet, 2) );
 
 
                 cout << "labelchan: " << labelChan << " >>> Adding syst: " << Syst_WWTop << endl;
