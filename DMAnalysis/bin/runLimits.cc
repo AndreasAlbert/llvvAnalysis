@@ -941,7 +941,7 @@ std::vector<TString>  buildDataCard(Int_t mass, TString histo, TString url, TStr
         dcName.ReplaceAll(".root","_"+channel+".dat");
         FILE* pFile = fopen(dcName.Data(),"w");
 
-        if(!channel.Contains("lleq")) combinedcard += channel+"="+dcName+" ";
+        if(!channel.Contains("ll")) combinedcard += channel+"="+dcName+" ";
         if(channel.Contains("lleq"))  combinedcardLL += channel+"="+dcName+" ";
         if(channel.Contains("ee"))    eecard += channel+"="+dcName+" ";
         if(channel.Contains("mumu"))  mumucard += channel+"="+dcName+" ";
