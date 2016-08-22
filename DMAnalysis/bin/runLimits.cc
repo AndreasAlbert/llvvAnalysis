@@ -466,10 +466,6 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
         TString procCtr("");
         procCtr+=i;
         TString proc=(Process[i])["tag"].toString();
-        TDirectory *pdir = (TDirectory *)inF->Get(proc);
-        if(pdir==0) {
-            /*printf("Skip Proc=%s because its directory is missing in root file\n", proc.Data());*/ continue;
-        }
 
         bool isData(Process[i]["isdata"].toBool());
         if(onlyData && !isData)continue; //just here to speedup the NRB prediction
@@ -494,6 +490,11 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
         int marker(20);
         if(Process[i].isTag("marker") ) marker = (int)Process[i]["marker"].toInt();
 
+        TDirectory *pdir = (TDirectory *)inF->Get(proc);
+        if(pdir==0) {
+            printf("Skip Proc=%s because its directory is missing in root file\n", proc.Data());
+            continue;
+        }
         TH1* syst = (TH1*)pdir->Get("optim_systs");
         if(syst==NULL) {
             cout << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> NULL" << endl;
