@@ -180,7 +180,7 @@ double MCRescale = 1.0;
 bool blindData = false;
 bool blindWithSignal = false;
 TString DYFile ="";
-TString inFileUrl(""),jsonFile(""), histo("");
+TString inFileUrl(""),jsonFile(""), histo(""),signal("");;
 TString postfix="";
 TString systpostfix="";
 double shapeMin = 0;
@@ -236,7 +236,7 @@ void initNormalizationSysts()
     normSysts["CMS_zllwimps_eeeq1jets_leptonVeto"] = 0.013;
 
     normSysts["norm_WZ"] = 0.03;
-    normSysts["norm_DM"] = 0.1;
+    normSysts["norm_DM"] = 0.0;
 
     //unparticle
     normSysts["QCDscale_UnPart1p01"]=1.027561608;
@@ -534,10 +534,7 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
         TString procCtr("");
         procCtr+=i;
         TString proc=(Process[i])["tag"].toString();
-        TDirectory *pdir = (TDirectory *)inF->Get(proc);
-        if(pdir==0) {
-            /*printf("Skip Proc=%s because its directory is missing in root file\n", proc.Data());*/ continue;
-        }
+
 
         bool isData(Process[i]["isdata"].toBool());
         if(onlyData && !isData)continue; //just here to speedup the NRB prediction
@@ -545,7 +542,9 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
         bool isSignal(Process[i].isTag("issignal") && Process[i]["issignal"].toBool());
 
         // Only keep the one signal explicitly specified on the command line
-        if( isSignal and not proc.Contains(signal) ) continue;
+        TString stripped = proc;
+        stripped.ReplaceAll("(","").ReplaceAll(")","");
+        if( isSignal and not ( stripped == signal ) ) continue;
         if(Process[i]["spimpose"].toBool() && (proc.Contains("ggH") || proc.Contains("qqH")))isSignal=true;
         int color(1);
         if(Process[i].isTag("color" ) ) color  = (int)Process[i]["color" ].toInt();
@@ -562,6 +561,11 @@ Shape_t getShapeFromFile(TFile* inF, TString ch, TString shapeName, int cutBin, 
         int marker(20);
         if(Process[i].isTag("marker") ) marker = (int)Process[i]["marker"].toInt();
 
+
+        TDirectory *pdir = (TDirectory *)inF->Get(proc);
+        if(pdir==0) {
+            /*printf("Skip Proc=%s because its directory is missing in root file\n", proc.Data());*/ continue;
+        }
         TH1* syst = (TH1*)pdir->Get("optim_systs");
         if(syst==NULL) {
             cout << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>> NULL" << endl;
@@ -807,52 +811,6 @@ void getYieldsFromShape(std::vector<TString> ch, const map<TString, Shape_t> &al
                 h=allShapes.find(ch[ich]+AnalysisBins[b]+shName)->second.signal[isig];
                 TString procTitle(h->GetTitle());
                 procTitle.ReplaceAll("#","\\");
-
-                if(mass>0 && !procTitle.Contains(massStr))continue;
-
-                if(procTitle.Contains("D1")) {
-                    if(mass>0 && !procTitle.Contains("D1("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D4")) {
-                    if(mass>0 && !procTitle.Contains("D4("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D5")) {
-                    if(mass>0 && !procTitle.Contains("D5("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D8")) {
-                    if(mass>0 && !procTitle.Contains("D8("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("D9")) {
-                    if(mass>0 && !procTitle.Contains("D9("+massStr+"GeV)"))continue;
-                }
-                if(procTitle.Contains("C3")) {
-                    if(mass>0 && !procTitle.Contains("C3("+massStr+"GeV)"))continue;
-                }
-
-                if(procTitle.Contains("Unpart")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !procTitle.Contains("Unpart("+massStr+")"))continue;
-                }
-
-                if(procTitle.Contains("ADD")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !procTitle.Contains("ADD("+massStr+")"))continue;
-                }
-
-                if(procTitle.Contains("EWK_S_DM")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !procTitle.Contains("EWK_S_DM("+massStr+")_K1("+K1Str+")_K2("+K2Str+")"))continue;
-                }
-
-                if(procTitle.Contains("DM") && procTitle.Contains("MV")) {
-                    if(mass<0 || MV<0) continue;
-                    if(!procTitle.Contains("DM("+massStr+")MV("+MVStr+")")) continue;
-                }
-
-                if(procTitle.Contains("DM") && procTitle.Contains("MA")) {
-                    if(mass<0 || MA<0) continue;
-                    if(!procTitle.Contains("DM("+massStr+")MA("+MAStr+")")) continue;
-                }
 
                 cout << "Signals >>>>>>> " << procTitle << endl;
 
@@ -1391,50 +1349,6 @@ DataCardInputs convertHistosForLimits(Int_t mass,TString histo,TString url,TStri
                 TH1* h=shapeSt.signal[isignal];
 
                 TString proc(h->GetTitle());
-                if(mass>0 && !proc.Contains(massStr))continue;
-
-                if(proc.Contains("D1")) {
-                    if(mass>0 && !proc.Contains("D1("+massStr+"GeV)"))continue;
-                }
-                if(proc.Contains("D4")) {
-                    if(mass>0 && !proc.Contains("D4("+massStr+"GeV)"))continue;
-                }
-                if(proc.Contains("D5")) {
-                    if(mass>0 && !proc.Contains("D5("+massStr+"GeV)"))continue;
-                }
-                if(proc.Contains("D8")) {
-                    if(mass>0 && !proc.Contains("D8("+massStr+"GeV)"))continue;
-                }
-                if(proc.Contains("D9")) {
-                    if(mass>0 && !proc.Contains("D9("+massStr+"GeV)"))continue;
-                }
-                if(proc.Contains("C3")) {
-                    if(mass>0 && !proc.Contains("C3("+massStr+"GeV)"))continue;
-                }
-                if(proc.Contains("Unpart")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !proc.Contains("Unpart("+massStr+")"))continue;
-                }
-
-                if(proc.Contains("ADD")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !proc.Contains("ADD("+massStr+")"))continue;
-                }
-
-                if(proc.Contains("EWK_S_DM")) {
-                    if(MV>0 || MA>0) continue;
-                    if(mass>0 && !proc.Contains("EWK_S_DM("+massStr+")_K1("+K1Str+")_K2("+K2Str+")"))continue;
-                }
-
-                if(proc.Contains("DM") && proc.Contains("MV")) {
-                    if(mass<0 || MV<0) continue;
-                    if(!proc.Contains("DM("+massStr+")MV("+MVStr+")")) continue;
-                }
-
-                if(proc.Contains("DM") && proc.Contains("MA")) {
-                    if(mass<0 || MA<0) continue;
-                    if(!proc.Contains("DM("+massStr+")MA("+MAStr+")")) continue;
-                }
 
                 if(mass>0 && proc.Contains("ZH")                        )proc = "ZH"+massStr+"2lMET";
 
