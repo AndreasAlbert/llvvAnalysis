@@ -80,7 +80,6 @@ struct stSampleInfo{
    double PURescale_up, PURescale_down,
           PDFRescale_up, PDFRescale_down,
           QCDRescale_up, QCDRescale_down,
-          WIMPRescale,
           initialNumberOfEvents;
 };
 std::unordered_map<string, stSampleInfo> sampleInfoMap;
@@ -247,7 +246,6 @@ void GetInitialNumberOfEvents(JSONWrapper::Object& Root, std::string RootDir, Na
          double PDFDownnorm    = 1; if(tmphist->GetBinContent(8)>0) PDFDownnorm = tmphist->GetBinContent(6) / tmphist->GetBinContent(8);
          double QCDUpnorm      = 1; if(tmphist->GetBinContent(9)>0) QCDUpnorm = tmphist->GetBinContent(6) / tmphist->GetBinContent(9);
          double QCDDownnorm    = 1; if(tmphist->GetBinContent(10)>0) QCDDownnorm = tmphist->GetBinContent(6) / tmphist->GetBinContent(10);
-         double WIMPnorm       = 1; if(tmphist->GetBinContent(12)>0) WIMPnorm = tmphist->GetBinContent(11) / tmphist->GetBinContent(12);
          sampleInfo.PURescale_down = PUDownnorm;
          sampleInfo.PURescale_up   = PUUpnorm;
 
@@ -257,12 +255,9 @@ void GetInitialNumberOfEvents(JSONWrapper::Object& Root, std::string RootDir, Na
          sampleInfo.QCDRescale_down = QCDDownnorm;
          sampleInfo.QCDRescale_up = QCDUpnorm;
 
-         sampleInfo.WIMPRescale = WIMPnorm;
          if(isMC)printf("\033[35mPU Renormalization %30s Shift Down --> %6.2f  Central = %6.2f  Up --> %6.2f\033[0m\n",(Samples[j])["dtag"].toString().c_str(),PUDownnorm, PUCentralnnorm, PUUpnorm);
          if(isMC)printf("\033[35mPDF Renormalization %30s Shift Down --> %6.2f  Central = %6.2f  Up --> %6.2f\033[0m\n",(Samples[j])["dtag"].toString().c_str(),PDFDownnorm, 1.0, PDFUpnorm);
          if(isMC)printf("\033[35mQCD Renormalization %30s Shift Down --> %6.2f  Central = %6.2f  Up --> %6.2f\033[0m\n",(Samples[j])["dtag"].toString().c_str(),QCDDownnorm, 1.0, QCDUpnorm);
-         if(isMC)printf("\033[35mWIMP Renormalization %30s %6.2f\n",(Samples[j])["dtag"].toString().c_str(),WIMPnorm);
-
 
          double cnorm = 1.0;
          if(tmphist)cnorm = tmphist->GetBinContent(1);
@@ -318,9 +313,6 @@ void SavingToFile(JSONWrapper::Object& Root, std::string RootDir, NameAndType Hi
             if(HistoProperties.name.find("qcdscaleup")!=string::npos){Weight *= sampleInfo.QCDRescale_up;}
          }
 
-         if( dtag.find("DM_V") != std::string::npos or dtag.find("DM_A") != std::string::npos ) {
-            Weight *= sampleInfo.WIMPRescale;
-         }
          if(HistoProperties.name.find("optim_cut")!=string::npos){Weight=1.0;}
 
          int split = 1;
