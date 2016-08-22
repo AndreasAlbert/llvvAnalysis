@@ -73,26 +73,11 @@ struct stPDFval {
 };
 
 struct DMTree {
-  double genmet;
-  double mx;
-  double mv;
-  double pfmet;
-  double pfmet_jerup;
-  double pfmet_jerdown;
-  double pfmet_jesup;
-  double pfmet_jesdown;
-  double pfmet_umetup;
-  double pfmet_umetdown;
-  double pfmet_lesup;
-  double pfmet_lesdown;
-  double pfmet_puup;
-  double pfmet_pudown;
-  double pfmet_btagup;
-  double pfmet_btagdown;
-  double pfmet_pdfup;
-  double pfmet_pdfdown;
-  double pfmet_qcdscaleup;
-  double pfmet_qcdscaledown;
+  int evcat;
+  int nJets;
+  float genmet;
+  float weight[20];
+  float pfmet[20];
 };
 
 //https://twiki.cern.ch/twiki/bin/viewauth/CMS/BtagRecommendation76X
@@ -207,26 +192,11 @@ int main(int argc, char* argv[])
     DMTree dmtree;
     if (isSignal && !doWIMPreweighting) {
       dmReweightTree = new TTree("dmReweight", "DM model reweighting tree");
+      dmReweightTree->Branch("evcat", &dmtree.evcat);
+      dmReweightTree->Branch("nJets", &dmtree.nJets);
       dmReweightTree->Branch("genmet", &dmtree.genmet);
-      dmReweightTree->Branch("mx", &dmtree.mx);
-      dmReweightTree->Branch("mv", &dmtree.mv);
-      dmReweightTree->Branch("pfmet", &dmtree.pfmet);
-      dmReweightTree->Branch("pfmet_jerup", &dmtree.pfmet_jerup);
-      dmReweightTree->Branch("pfmet_jerdown", &dmtree.pfmet_jerdown);
-      dmReweightTree->Branch("pfmet_jesup", &dmtree.pfmet_jesup);
-      dmReweightTree->Branch("pfmet_jesdown", &dmtree.pfmet_jesdown);
-      dmReweightTree->Branch("pfmet_umetup", &dmtree.pfmet_umetup);
-      dmReweightTree->Branch("pfmet_umetdown", &dmtree.pfmet_umetdown);
-      dmReweightTree->Branch("pfmet_lesup", &dmtree.pfmet_lesup);
-      dmReweightTree->Branch("pfmet_lesdown", &dmtree.pfmet_lesdown);
-      dmReweightTree->Branch("pfmet_puup", &dmtree.pfmet_puup);
-      dmReweightTree->Branch("pfmet_pudown", &dmtree.pfmet_pudown);
-      dmReweightTree->Branch("pfmet_btagup", &dmtree.pfmet_btagup);
-      dmReweightTree->Branch("pfmet_btagdown", &dmtree.pfmet_btagdown);
-      dmReweightTree->Branch("pfmet_pdfup", &dmtree.pfmet_pdfup);
-      dmReweightTree->Branch("pfmet_pdfdown", &dmtree.pfmet_pdfdown);
-      dmReweightTree->Branch("pfmet_qcdscaleup", &dmtree.pfmet_qcdscaleup);
-      dmReweightTree->Branch("pfmet_qcdscaledown", &dmtree.pfmet_qcdscaledown);
+      dmReweightTree->Branch("pfmet", &dmtree.pfmet, "pfmet[20]/F");
+      dmReweightTree->Branch("weight", &dmtree.weight, "weight[20]/F");
     }
 
 
@@ -246,9 +216,6 @@ int main(int argc, char* argv[])
 
 
     WIMPReweighting myWIMPweights;
-    auto mxmv_pair = myWIMPweights.extractMassesFromUrl(url);
-    dmtree.mx = mxmv_pair.first;
-    dmtree.mv = mxmv_pair.second;
 
     //systematics
     bool runSystematics                        = runProcess.getParameter<bool>("runSystematics");
@@ -329,15 +296,16 @@ int main(int argc, char* argv[])
     SmartSelectionMonitor mon;
 
 
-    TH1F *h=(TH1F*) mon.addHistogram( new TH1F ("eventflow", ";;Events", 10,0,10) );
-    h->GetXaxis()->SetBinLabel(1,"Trigger && 2 leptons");
-    h->GetXaxis()->SetBinLabel(2,"|#it{m}_{ll}-#it{m}_{Z}|<15");
-    h->GetXaxis()->SetBinLabel(3,"#it{p}_{T}^{ll}>50");
-    h->GetXaxis()->SetBinLabel(4,"3^{rd}-lepton veto");
-    h->GetXaxis()->SetBinLabel(5,"b-veto");
-    h->GetXaxis()->SetBinLabel(6,"#Delta#it{#phi}(#it{l^{+}l^{-}},E_{T}^{miss})>2.7");
-    h->GetXaxis()->SetBinLabel(7,"|E_{T}^{miss}-#it{q}_{T}|/#it{q}_{T}<0.2");
-    h->GetXaxis()->SetBinLabel(8,"E_{T}^{miss}>80");
+    TH1F *h=(TH1F*) mon.addHistogram( new TH1F ("scalefactors", ";;Sum Weights", 10,0,10) );
+    h->GetXaxis()->SetBinLabel(1,"Lep1 ID");
+    h->GetXaxis()->SetBinLabel(2,"Lep2 ID");
+    h->GetXaxis()->SetBinLabel(3,"Trigger");
+    h->GetXaxis()->SetBinLabel(4,"Product");
+    h=(TH1F*) mon.addHistogram( new TH1F ("scalefactors_final", ";;Sum Weights", 10,0,10) );
+    h->GetXaxis()->SetBinLabel(1,"Lep1 ID");
+    h->GetXaxis()->SetBinLabel(2,"Lep2 ID");
+    h->GetXaxis()->SetBinLabel(3,"Trigger");
+    h->GetXaxis()->SetBinLabel(4,"Product");
 
     int nbin = 1;
     h=(TH1F*) mon.addHistogram( new TH1F ("sync_cutflow", ";;Events", 12,0,12) );
@@ -703,7 +671,7 @@ int main(int argc, char* argv[])
     gSystem->ExpandPathName(ElectronMediumWPSF_);
     cout << "Loading Electron MediumWP SF: " << ElectronMediumWPSF_ << endl;
     TFile *ElectronMediumWPSF_File = TFile::Open(ElectronMediumWPSF_);
-    TH2F* h_ElectronMediumWPSF = (TH2F *) ElectronMediumWPSF_File->Get("scalefactors_Medium_Electron");
+    TH2F* h_ElectronMediumWPSF = (TH2F *) ElectronMediumWPSF_File->Get("scalefactors_Medium_Electron"); // POG name: EGamma_SF2D
 
     TString ElectronRECOSF_ = runProcess.getParameter<std::string>("ElectronRECOSF");
     gSystem->ExpandPathName(ElectronRECOSF_);
@@ -1086,6 +1054,7 @@ int main(int argc, char* argv[])
         // Thus, the weight is simply the efficiency in data
         // The efficiency is binned in |eta| of tag and probe,
         // for now we just take the leading lepton as tag
+        double triggerSF = weight;
         if(isMC) {
             double eta_tag   = lep1.pt() > lep2.pt() ? lep1.eta() : lep2.eta();
             double eta_probe = lep1.pt() > lep2.pt() ? lep2.eta() : lep1.eta();
@@ -1109,6 +1078,7 @@ int main(int argc, char* argv[])
                     weight *= getSFfrom2DHist( fabs(eta_probe), fabs(eta_tag), h_ElectronTrigEffSF_3 );
             }
         }
+        triggerSF = weight/triggerSF;
 
         //split inclusive DY sample into DYToLL and DYToTauTau
         if(isMC && mctruthmode==1) {
@@ -1187,7 +1157,6 @@ int main(int argc, char* argv[])
             if( (fabs(lep1.eta())>1.6 && fabs(lep1.eta())<2.4) && (fabs(lep2.eta())>1.6 && fabs(lep2.eta())<2.4) ) mon.fillHisto("DMAcceptance",tags,2,1);
         }
 */
-        mon.fillHisto("eventflow",tags,0,weight);
         mon.fillHisto("nleptons_raw",tags, nGoodLeptons, weight);
 
 
@@ -1409,6 +1378,15 @@ int main(int argc, char* argv[])
             if(tag_subcat=="eq0jets" || tag_subcat=="eq1jets") tags.push_back("lllesq1jets");
         }
 
+        double lep1SF{1.}, lep2SF{1.};
+        if(abs(id1)==13) lep1SF = getSFfrom2DHist( fabs(lep1.eta()), lep1.pt(), h_MuonTightWPSF );
+        if(abs(id1)==11) lep1SF = getSFfrom2DHist( fabs(lep1.eta()), lep1.pt(), h_ElectronMediumWPSF );
+        if(abs(id2)==13) lep2SF = getSFfrom2DHist( fabs(lep2.eta()), lep2.pt(), h_MuonTightWPSF );
+        if(abs(id2)==11) lep2SF = getSFfrom2DHist( fabs(lep2.eta()), lep2.pt(), h_ElectronMediumWPSF );
+        mon.fillHisto("scalefactors", tags, 0, lep1SF);
+        mon.fillHisto("scalefactors", tags, 1, lep2SF);
+        mon.fillHisto("scalefactors", tags, 2, triggerSF);
+        mon.fillHisto("scalefactors", tags, 3, lep1SF*lep2SF*triggerSF);
 
         //apply weights
         if(isMC) weight *= BTagWeights;
@@ -1470,6 +1448,10 @@ int main(int argc, char* argv[])
                                                     mon.fillHisto( "pfmet2_final",tags, metP4.pt(), weight, true);
                                                     if(!isMC) fprintf(outTxtFile_final,"%d | %d | %d | pfmet: %f | mt: %f | mass: %f |jpt: %f | Cat: %s \n",ev.run,ev.lumi
 ,ev.event,metP4.pt(), MT_massless,zll.mass(),corrJets[0].pt(),(const char*) tag_cat);
+        mon.fillHisto("scalefactors_final", tags, 0, lep1SF);
+        mon.fillHisto("scalefactors_final", tags, 1, lep2SF);
+        mon.fillHisto("scalefactors_final", tags, 2, triggerSF);
+        mon.fillHisto("scalefactors_final", tags, 3, lep1SF*lep2SF*triggerSF);
 
                                                 } // passResponseCut
                                             } // passDphiJetMET
@@ -1556,95 +1538,6 @@ int main(int argc, char* argv[])
 
         }
     
-/*
-        //##############################################
-        //########  Main Event Selection        ########
-        //##############################################
-        //for MET X-Y shift correction
-        mon.fillHisto("pfmetx_vs_nvtx",tags,phys.nvtx,metP4.px(), weight);
-        mon.fillHisto("pfmety_vs_nvtx",tags,phys.nvtx,metP4.py(), weight);
-        LorentzVector metP4_XYCorr = METUtils::applyMETXYCorr(metP4,isMC,phys.nvtx);
-        mon.fillHisto("pfmetphi_wocorr",tags, metP4.phi(), weight);
-        mon.fillHisto("pfmetphi_wicorr",tags, metP4_XYCorr.phi(), weight);
-        mon.fillHisto("pfmet_wicorr",tags, metP4_XYCorr.pt(), weight, true);
-        mon.fillHisto("pfmet2_wicorr",tags, metP4_XYCorr.pt(), weight, true);
-        if(passZmass) {
-            mon.fillHisto("eventflow",  tags, 1, weight);
-            if(passZpt) {
-                mon.fillHisto("eventflow",  tags, 2, weight);
-                if(pass3dLeptonVeto) {
-                    mon.fillHisto("eventflow",  tags, 3, weight);
-                    if(passBveto) {
-                        mon.fillHisto("eventflow",  tags, 4, weight);
-                        //preselection plots
-                        if(!isMC) {
-                            //data blinded
-                            if(metP4.pt()<80) {
-                                mon.fillHisto("pfmet_presel",tags, metP4.pt(), weight, true);
-                                mon.fillHisto("pfmet2_presel",tags, metP4.pt(), weight, true);
-                                mon.fillHisto("mt_presel",   tags, MT_massless, weight);
-                                mon.fillHisto("mt2_presel",   tags, MT_massless, weight, true);
-                            }
-                        } else {
-                            mon.fillHisto("pfmet_presel",tags, metP4.pt(), weight, true);
-                            mon.fillHisto("pfmet2_presel",tags, metP4.pt(), weight, true);
-                            mon.fillHisto("mt_presel",   tags, MT_massless, weight);
-                            mon.fillHisto("mt2_presel",   tags, MT_massless, weight, true);
-                        }
-                        mon.fillHisto("dphiZMET_presel",tags, dphiZMET, weight);
-                        mon.fillHisto("balancedif_presel",tags, balanceDif, weight);
-                        mon.fillHisto("axialpfmet_presel",    tags,  axialmet,  weight);
-                        //forDY ctrl
-                        if(passResponseCut) {
-                            mon.fillHisto("pfmet_DYctrlN_3", tags, metP4.pt(), weight);
-                            mon.fillHisto("balancedif_DYctrlN_3",tags, balanceDif, weight);
-                            mon.fillHisto("dphiZMET_DYctrlN_3",tags, dphiZMET, weight);
-                        }
-                        //N-1 for MET
-                        if(passDphiZMETcut && passResponseCut && passBalanceCut) {
-                            mon.fillHisto("pfmet_nm1", tags, metP4.pt(), weight);
-                            mon.fillHisto("pfmet2_nm1", tags, metP4.pt(), weight,true);
-                            mon.fillHisto("mt_nm1",   tags, MT_massless, weight);
-                            mon.fillHisto("mt2_nm1",   tags, MT_massless, weight,true);
-                            if(metP4.pt()>80) {
-                                mon.fillHisto("pfmet_met80", tags, metP4.pt(), weight);
-                                mon.fillHisto("pfmet2_met80", tags, metP4.pt(), weight,true);
-                                mon.fillHisto("mt_met80",   tags, MT_massless, weight);
-                                mon.fillHisto("mt2_met80",   tags, MT_massless, weight,true);
-                            }
-                            if(metP4.pt()>140) {
-                                mon.fillHisto("pfmet_met140", tags, metP4.pt(), weight);
-                                mon.fillHisto("pfmet2_met140", tags, metP4.pt(), weight,true);
-                                mon.fillHisto("mt_met140",   tags, MT_massless, weight);
-                                mon.fillHisto("mt2_met140",   tags, MT_massless, weight,true);
-                            }
-                        }
-                        if(passDphiZMETcut && passResponseCut) {
-                            mon.fillHisto("eventflow",  tags, 5, weight);
-                            if(passBalanceCut) {
-                                mon.fillHisto("eventflow",  tags, 6, weight);
-                                if(passMETcut) {
-                                    mon.fillHisto("eventflow",  tags, 7, weight);
-                                    mon.fillHisto("mt_final",   tags, MT_massless, weight);
-                                    mon.fillHisto("pfmet_final",tags, metP4.pt(), weight, true);
-                                    mon.fillHisto("pfmet2_final",tags, metP4.pt(), weight, true);
-                                    if(passMETcut120) mon.fillHisto("mt_final120",   tags, MT_massless, weight);
-                                    if(!isMC) fprintf(outTxtFile_final,"%d | %d | %d | pfmet: %f | mt: %f | mass: %f \n",ev.run,ev.lumi,ev.event,metP4.pt(), MT_massless,zll.mass());
-                                } //passMETcut
-                            } //passBalanceCut
-                        } //passDphiZMETcut
-                    } //passBveto
-                } //pass3dLeptonVeto
-            } //passZpt
-        } //passZmass
-*/
-
-
-
-
-
-
-
 
         //##############################################################################
         //### HISTOS FOR STATISTICAL ANALYSIS (include systematic variations)
@@ -1653,23 +1546,12 @@ int main(int argc, char* argv[])
         // Clear dmtree before variations loop
         // Since met can shift or be excluded in a variation, make default -1 to make cut clear
         if ( dmReweightTree != nullptr ) {
-          dmtree.pfmet = -1.;
-          dmtree.pfmet_jerup = -1.;
-          dmtree.pfmet_jerdown = -1.;
-          dmtree.pfmet_jesup = -1.;
-          dmtree.pfmet_jesdown = -1.;
-          dmtree.pfmet_umetup = -1.;
-          dmtree.pfmet_umetdown = -1.;
-          dmtree.pfmet_lesup = -1.;
-          dmtree.pfmet_lesdown = -1.;
-          dmtree.pfmet_puup = -1.;
-          dmtree.pfmet_pudown = -1.;
-          dmtree.pfmet_btagup = -1.;
-          dmtree.pfmet_btagdown = -1.;
-          dmtree.pfmet_pdfup = -1.;
-          dmtree.pfmet_pdfdown = -1.;
-          dmtree.pfmet_qcdscaleup = -1.;
-          dmtree.pfmet_qcdscaledown = -1.;
+          dmtree.evcat = evcat;
+          dmtree.nJets = nJetsGood30;
+          for(size_t i=0; i<20; ++i) {
+            dmtree.pfmet[i] = -1.;
+            dmtree.weight[i] = 0.;
+          }
         }
 
         //Fill histogram for posterior optimization, or for control regions
@@ -1873,25 +1755,16 @@ int main(int argc, char* argv[])
 
                     mon.fillHisto(TString("met_shapes")+varNames[ivar],tags,index, vMET.pt(), iweight);
                     mon.fillHisto(TString("met2_shapes")+varNames[ivar],tags,index, vMET.pt(), iweight);
+                    bool ismmlesq1 = false;
+                    for(auto& tag : tags) if (tag=="mumulesq1jets") ismmlesq1 = true;
+                    if ( ivar == 0 && index == 0 && ismmlesq1 && dmtree.nJets >1 ) {
+                      std::cout << "Filling met2shapes " << vMET.pt() << " wgt " << iweight << std::endl;
+                      std::cout << "nJets = " << dmtree.nJets <<std::endl;
+                    }
 
                     if (index==0 && dmReweightTree != nullptr ) {
-                        if(varNames[ivar]=="") dmtree.pfmet = vMET.pt();
-                        else if(varNames[ivar]=="_jerup") dmtree.pfmet_jerup = vMET.pt();
-                        else if(varNames[ivar]=="_jerdown") dmtree.pfmet_jerdown = vMET.pt();
-                        else if(varNames[ivar]=="_jesup") dmtree.pfmet_jesup = vMET.pt();
-                        else if(varNames[ivar]=="_jesdown") dmtree.pfmet_jesdown = vMET.pt();
-                        else if(varNames[ivar]=="_umetup") dmtree.pfmet_umetup = vMET.pt();
-                        else if(varNames[ivar]=="_umetdown") dmtree.pfmet_umetdown = vMET.pt();
-                        else if(varNames[ivar]=="_lesup") dmtree.pfmet_lesup = vMET.pt();
-                        else if(varNames[ivar]=="_lesdown") dmtree.pfmet_lesdown = vMET.pt();
-                        else if(varNames[ivar]=="_puup") dmtree.pfmet_puup = vMET.pt();
-                        else if(varNames[ivar]=="_pudown") dmtree.pfmet_pudown = vMET.pt();
-                        else if(varNames[ivar]=="_btagup") dmtree.pfmet_btagup = vMET.pt();
-                        else if(varNames[ivar]=="_btagdown") dmtree.pfmet_btagdown = vMET.pt();
-                        else if(varNames[ivar]=="_pdfup") dmtree.pfmet_pdfup = vMET.pt();
-                        else if(varNames[ivar]=="_pdfdown") dmtree.pfmet_pdfdown = vMET.pt();
-                        else if(varNames[ivar]=="_qcdscaleup") dmtree.pfmet_qcdscaleup = vMET.pt();
-                        else if(varNames[ivar]=="_qcdscaledown") dmtree.pfmet_qcdscaledown = vMET.pt();
+                        dmtree.pfmet[ivar] = vMET.pt();
+                        dmtree.weight[ivar] = iweight;
                     }
                 }
 
