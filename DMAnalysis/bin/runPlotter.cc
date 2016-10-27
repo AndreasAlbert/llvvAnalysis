@@ -280,27 +280,29 @@ void GetInitialNumberOfEvents(JSONWrapper::Object& Root, std::string RootDir, Na
 void SavingToFile(JSONWrapper::Object& Root, std::string RootDir, NameAndType HistoProperties, TFile* OutputFile){
    std::vector<TObject*> ObjectToDelete;
 
-   std::vector<JSONWrapper::Object> Process = Root["proc"].daughters();
-   for(unsigned int i=0;i<Process.size();i++){
+   std::vector<JSONWrapper::Object> Processes = Root["proc"].daughters();
+   for( auto & process:Processes){
       TH1* hist = NULL;
       //TList *tree_list = new TList;;//RJ
-      std::vector<JSONWrapper::Object> Samples = (Process[i])["data"].daughters();
-      for(unsigned int j=0;j<Samples.size();j++){
+      std::vector<JSONWrapper::Object> Samples = (process)["data"].daughters();
+      for(auto & sample : Samples){
          double Weight = 1.0;
-         if(!Process[i]["isdata"].toBool() && !Process[i]["isdatadriven"].toBool())Weight*= iLumi;
-         if(Samples[j].isTag("xsec")     )Weight*= Samples[j]["xsec"].toDouble();
-	 string filtExt("");
-	 if(Process[i].isTag("mctruthmode") ) { char buf[255]; sprintf(buf,"_filt%d",(int)Process[i]["mctruthmode"].toInt()); filtExt += buf; }
+         if(!process["isdata"].toBool() && !process["isdatadriven"].toBool())Weight*= iLumi;
+         if(sample.isTag("xsec")     )Weight*= sample["xsec"].toDouble();
+         string filtExt("");
+         if(process.isTag("mctruthmode") ) { char buf[255]; sprintf(buf,"_filt%d",(int)process["mctruthmode"].toInt()); filtExt += buf; }
 
-	 std::vector<JSONWrapper::Object> BR = Samples[j]["br"].daughters();for(unsigned int b=0;b<BR.size();b++){Weight*=BR[b].toDouble();}
-         stSampleInfo& sampleInfo = sampleInfoMap[(Samples[j])["dtag"].toString()];
+         for(auto & branching_ratio : sample["br"].daughters() ){
+            Weight*=branching_ratio.toDouble();
+         }
+         stSampleInfo& sampleInfo = sampleInfoMap[sample["dtag"].toString()];
          Weight /= sampleInfo.initialNumberOfEvents;
 
          if(HistoProperties.name.find("puup"  )!=string::npos){Weight *= sampleInfo.PURescale_up;}
          if(HistoProperties.name.find("pudown")!=string::npos){Weight *= sampleInfo.PURescale_down;}
 
          // If the sample is a signal, we rescale so that PDF/QCD do not change the cross-section
-         std::string dtag = (Samples[j])["dtag"].toString();
+         std::string dtag = (sample)["dtag"].toString();
          if( dtag.find("DM_V") != std::string::npos
           or dtag.find("DM_A") != std::string::npos
           or dtag.find("DM_EWK") != std::string::npos
@@ -316,12 +318,12 @@ void SavingToFile(JSONWrapper::Object& Root, std::string RootDir, NameAndType Hi
          if(HistoProperties.name.find("optim_cut")!=string::npos){Weight=1.0;}
 
          int split = 1;
-         if(Samples[j].isTag("split"))split = Samples[j]["split"].toInt();
+         if(sample.isTag("split"))split = sample["split"].toInt();
          TH1* tmphist = NULL;
          for(int s=0;s<split;s++){
 	   string segmentExt; if(split>1){ char buf[255]; sprintf(buf,"_%i",s); segmentExt += buf;}
 
-            string FileName = RootDir + (Samples[j])["dtag"].toString() + ((Samples[j].isTag("suffix"))?(Samples[j])["suffix"].toString():string("")) +  segmentExt + filtExt + ".root";
+            string FileName = RootDir + (sample)["dtag"].toString() + ((sample.isTag("suffix"))?(sample)["suffix"].toString():string("")) +  segmentExt + filtExt + ".root";
             if(!FileExist[FileName])continue;
             TFile* File = new TFile(FileName.c_str());
             if(!File || File->IsZombie() || !File->IsOpen() || File->TestBit(TFile::kRecovered) )continue;
@@ -332,7 +334,7 @@ void SavingToFile(JSONWrapper::Object& Root, std::string RootDir, NameAndType Hi
 	    //cout << "TEST 1---------------"<<endl;
 	    //RJ
 	    //TTree *tmptmptree = (TTree*)File->Get("zhinv_tree");
-	    //tmptmptree->SetName(Process[i]["tag"].c_str());
+	    //tmptmptree->SetName(process["tag"].c_str());
 	    //tmptmptree->SetWeight(Weight);
 	    //cout << "TEST 2---------------"<<endl;
 	    //tree_list->Add(tmptmptree);
@@ -349,14 +351,14 @@ void SavingToFile(JSONWrapper::Object& Root, std::string RootDir, NameAndType Hi
       }
       if(!hist)continue;
 
-      string dirName = Process[i]["tag"].c_str();while(dirName.find("/")!=std::string::npos)dirName.replace(dirName.find("/"),1,"-");
+      string dirName = process["tag"].c_str();while(dirName.find("/")!=std::string::npos)dirName.replace(dirName.find("/"),1,"-");
       OutputFile->cd();
       //cout << "TEST 4---------------" << endl;
-      //string treeName = "tree_"+Process[i]["tag"].c_str();
+      //string treeName = "tree_"+process["tag"].c_str();
       ////TTree *zhinv_tree  = TTree::MergeTrees(tree_list);
       //TTree *zhinv_tree     = new TTree(treeName,"");
       //cout << "TEST 4---------------1" << endl;
-      ////zhinv_tree->SetName("tree_"+Process[i]["tag"].c_str());
+      ////zhinv_tree->SetName("tree_"+process["tag"].c_str());
       //zhinv_tree->Write();
       //cout << "TEST 5---------------" << endl;
       TDirectory* subdir = OutputFile->GetDirectory(dirName.c_str());
@@ -692,8 +694,8 @@ void Draw1DHistogram(JSONWrapper::Object& Root, std::string RootDir, NameAndType
 
 
    TLegend* legA  = new TLegend();
-   if(!(isDataBlind||noratio)) legA  = new TLegend(0.45,0.7,0.9,0.95, "NDC");
-   else legA = new TLegend(0.45,0.78-0.03,0.9,0.98-0.03, "NDC");
+   if(!(isDataBlind||noratio)) legA  = new TLegend(0.2,0.65,0.9,0.95, "NDC");
+   else legA = new TLegend(0.2,0.8,0.70,0.9, "NDC");
 
    legA->SetNColumns(3);
    THStack* stack = new THStack("MC","MC");
@@ -851,6 +853,7 @@ void Draw1DHistogram(JSONWrapper::Object& Root, std::string RootDir, NameAndType
      stack->GetYaxis()->SetTitleOffset(0.9);
      stack->GetYaxis()->SetLabelSize(0.06);
      stack->GetYaxis()->SetTitleSize(0.06);
+     stack->GetXaxis()->SetRangeUser(0,1200);
 
      if(noratio){
 	stack->GetXaxis()->SetTitleOffset(0.9);
@@ -1018,7 +1021,7 @@ void Draw1DHistogram(JSONWrapper::Object& Root, std::string RootDir, NameAndType
    T->SetBorderSize(0);
 
 
-   TPaveText* T2 = new TPaveText(0.2,0.93,0.39,0.8, "NDC");
+   TPaveText* T2 = new TPaveText(0.7,0.55,0.9,0.65, "NDC");
    if(noratio) T2 = new TPaveText(0.2,0.93,0.39,0.88, "NDC");
    T2->SetFillColor(0);
    T2->SetFillStyle(0);  T2->SetLineColor(0);
@@ -1116,6 +1119,7 @@ void Draw1DHistogram(JSONWrapper::Object& Root, std::string RootDir, NameAndType
 	   Double_t err=denRelUncH->GetBinError(xbin)/denRelUncH->GetBinContent(xbin);
 	   denRelUncH->SetBinContent(xbin,1);
 	   denRelUncH->SetBinError(xbin,err);
+      denRelUncH->GetXaxis()->SetRangeUser(80,1200);
 	 }
        //TGraphErrors *denRelUnc=new TGraphErrors(denRelUncH);
        TGraphErrors *denRelUnc=new TGraphErrors(denRelUncH->GetXaxis()->GetNbins());
@@ -1145,7 +1149,7 @@ void Draw1DHistogram(JSONWrapper::Object& Root, std::string RootDir, NameAndType
        denRelUnc->Draw("2");
 
        TLine *llbase;
-       llbase = new TLine(llmin,1.,llmax,1.);
+       llbase = new TLine(80,1.,llmax,1.);
        if(useDataMinusMC) llbase = new TLine(llmin,0.,llmax,0.);
        llbase->SetLineWidth(1);
        llbase->SetLineStyle(1);
@@ -1363,11 +1367,11 @@ TString getChannelName(std::string SaveName){
    TString Buffer2;
    if(SaveName.find("eeeq0jets") != string::npos)       {Buffer2="#it{ee, 0 jets channel}";}
    if(SaveName.find("eeeq1jets") != string::npos)       {Buffer2="#it{ee, 1 jets channel}";}
-   if(SaveName.find("eelesq1jets") != string::npos)     {Buffer2="#it{ee, #leq 1 jets channel}";}
+   if(SaveName.find("eelesq1jets") != string::npos)     {Buffer2="#it{ee channel}";}
    if(SaveName.find("eegeq2jets") != string::npos)      {Buffer2="#it{ee, #geq 2 jets channel}";}
    if(SaveName.find("mumueq0jets") != string::npos)     {Buffer2="#it{#mu#mu, 0 jets channel}";}
    if(SaveName.find("mumueq1jets") != string::npos)     {Buffer2="#it{#mu#mu, 1 jets channel}";}
-   if(SaveName.find("mumulesq1jets") != string::npos)   {Buffer2="#it{#mu#mu, #leq 1 jets channel}";}
+   if(SaveName.find("mumulesq1jets") != string::npos)   {Buffer2="#it{#mu#mu channel}";}
    if(SaveName.find("mumugeq2jets") != string::npos)    {Buffer2="#it{#mu#mu, #geq 2 jets channel}";}
    if(SaveName.find("emueq0jets") != string::npos)      {Buffer2="#it{e#mu, 0 jets channel}";}
    if(SaveName.find("emueq1jets") != string::npos)      {Buffer2="#it{e#mu, 1 jets channel}";}
@@ -1618,74 +1622,57 @@ int main(int argc, char* argv[]){
    //SavingTreeToFile(Root,inDir, OutputFile); //RJ, runMVAtree
 
    int ictr(0);
-   for(std::list<NameAndType>::iterator it= histlist.begin(); it!= histlist.end(); it++,ictr++)
-     {
-       if(!doPlot){ if(ictr%TreeStep==0){printf(".");fflush(stdout);} }
-       bool passMasking(false);
-       for(unsigned int i=0;i<histoNameMask.size();i++){
+   for( auto const & hist : histlist ) {
+      if(!doPlot){ if(ictr++%TreeStep==0){printf(".");fflush(stdout);} }
+      bool passMasking(false);
+      for(auto const substring : histoNameMask ){
+         if(histoNameMaskStart.size()==0){
+            if(hist.name.find(substring)!=std::string::npos)
+            passMasking = true;
+         } else {
+            for(unsigned int j=0;j<histoNameMaskStart.size();j++){
+               if(hist.name.find(substring)!=std::string::npos &&
+                  hist.name.find(histoNameMaskStart[j])!=std::string::npos) passMasking = true;
+            }
+         }
+      }
+      if(histoNameMask.size()==0 && histoNameMaskStart.size()==0)passMasking = true;
 
-	if(histoNameMaskStart.size()==0){
-		if(it->name.find(histoNameMask[i])!=std::string::npos)
-		passMasking = true;
-	} else {
-		for(unsigned int j=0;j<histoNameMaskStart.size();j++){
+      //excluding some hists
+      if(passMasking && nohistoNameMask.size()!=0) {
+         for(auto const & substring : nohistoNameMask ) {
+            if(hist.name.find(substring)!=std::string::npos){
+               passMasking = false;
+               break;
+            }
+         }
+      }
+      if(!passMasking)continue;
 
-			if(it->name.find(histoNameMask[i])!=std::string::npos &&
-				it->name.find(histoNameMaskStart[j])!=std::string::npos) passMasking = true;
-		}
-	}
-       }
-       if(histoNameMask.size()==0 && histoNameMaskStart.size()==0)passMasking = true;
+      bool skipChannel(true);
+      for(auto const & name : histoChannelName ) {
+         if(hist.name.find(name)!=std::string::npos) {
+            skipChannel=false;
+            break;
+         }
+      }
+      if(skipChannel) continue;
 
-	//excluding some hists
-       if(passMasking && nohistoNameMask.size()!=0) {
-		for(unsigned int j=0;j<nohistoNameMask.size();j++)
-		{
-			if(it->name.find(nohistoNameMask[j])!=std::string::npos){
-				passMasking = false;
-				break;}
-		}
-       }
+      system(("echo \"" + hist.name + "\" >> " + csvFile).c_str());
+      TString itname = hist.name;
 
+      if(doPlot && do2D  && !hist.type){                      if(!splitCanvas){ Draw2DHistogram(Root,inDir,hist);}else{Draw2DHistogramSplitCanvas(Root,inDir,hist);}}
+      if(doPlot && do1D  &&  hist.type){                                        Draw1DHistogram(Root,inDir,hist); }
 
-       if(!passMasking)continue;
-
-
-       //debug
-       //if(!itname.Contains("all_") && !itname.Contains("ee_") ) continue;
-       bool skipChannel(true);
-       for(size_t j=0; j<histoChannelName.size(); j++)
-       {
-	if(it->name.find(histoChannelName[j])!=std::string::npos)
-		skipChannel=false;
-       }
-       if(skipChannel) continue;
-
-       system(("echo \"" + it->name + "\" >> " + csvFile).c_str());
-       TString itname = it->name;
-
-       //convert # of Events to Tex files
-       //if(doTex && (it->name.find("eventflow")!=std::string::npos || it->name.find("evtflow")!=std::string::npos)
-       //		&& it->name.find("optim_eventflow")==std::string::npos)
-       //if(doTex && (it->name.find("zmass_WtCtrl_2")!=std::string::npos) )
-       //{
-       //		getYieldsandErrors(Root,inDir,*it);
-       //}
-
-       if(doPlot && do2D  && !it->type){                      if(!splitCanvas){ Draw2DHistogram(Root,inDir,*it);}else{Draw2DHistogramSplitCanvas(Root,inDir,*it);}}
-       if(doPlot && do1D  &&  it->type){                                        Draw1DHistogram(Root,inDir,*it); }
-
-       if(StoreInFile && do2D  && !it->type){                                  	SavingToFile(Root,inDir,*it, OutputFile); }
-       if(StoreInFile && do1D  &&  it->type){					SavingToFile(Root,inDir,*it, OutputFile); }
-
-     }
+      if(StoreInFile && do2D  && !hist.type){                                  	SavingToFile(Root,inDir,hist, OutputFile); }
+      if(StoreInFile && do1D  &&  hist.type){					SavingToFile(Root,inDir,hist, OutputFile); }
+   }
 
 
    printf("\n");
    if(StoreInFile) OutputFile->Close();
 
    system(("python ${CMSSW_BASE}/src/llvvAnalysis/DMAnalysis/data/html/generateJSONplotterFromList.py -i " + csvFile + " -o "+outDir+"/plotter.json").c_str());
-   //system(("rm " + csvFile).c_str());
    system("python ${CMSSW_BASE}/src/llvvAnalysis/DMAnalysis/data/html/generatehtml.py");
    system(("cp ${CMSSW_BASE}/src/llvvAnalysis/DMAnalysis/data/html/index.html " + outDir).c_str());
    printf("\033[31mYou can browse the results using: firefox %sindex.html\033[0m\n",outDir.c_str());
