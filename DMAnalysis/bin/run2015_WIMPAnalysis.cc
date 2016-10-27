@@ -41,9 +41,9 @@
 
 #include "llvvAnalysis/DMAnalysis/interface/LeptonEfficiencySF.h"
 
-// Utilities for muon momentum and resolution corrections (Rochester) 
+// Utilities for muon momentum and resolution corrections (Rochester)
 /*
-#include <rochcor2015.h> 
+#include <rochcor2015.h>
 #include <RoccoR.h>
 */
 
@@ -191,7 +191,7 @@ int main(int argc, char* argv[])
 
 
     //WIMPReweighting myWIMPweights(runProcess);
-    WIMPReweighting myWIMPweights; 
+    WIMPReweighting myWIMPweights;
 
 
     //systematics
@@ -516,6 +516,15 @@ int main(int argc, char* argv[])
                 }
             }
         }
+        for(double met=250; met<=800; met+=50) {
+            for(double balance=0.2; balance<=0.2; balance+=0.05) {
+                for(double dphi=2.7; dphi<2.8; dphi+=0.1) {
+                    optim_Cuts1_MET     .push_back(met);
+                    optim_Cuts1_Balance .push_back(balance);
+                    optim_Cuts1_DphiZMET.push_back(dphi);
+                }
+            }
+        }
     }
 
     size_t nOptims = optim_Cuts1_MET.size();
@@ -562,17 +571,17 @@ int main(int argc, char* argv[])
     //open the file and get events tree
     DataEvtSummaryHandler summaryHandler_;
     if(doWIMPreweighting) {
-        // Only for simplified models 
-        if(url.Contains("TeV_DM_")) { 
-	    bool isreweighted = myWIMPweights.Init(runProcess, url); 
-	    if(!isreweighted) { 
+        // Only for simplified models
+        if(url.Contains("TeV_DM_")) {
+	    bool isreweighted = myWIMPweights.Init(runProcess, url);
+	    if(!isreweighted) {
 	        cerr << " *** WARNING: WIMP re-weighting initialization failed! ***" << endl;
 		throw cms::Exception("WIMP initialization");
-	    } 
-	} 
-	// For EWK models 
+	    }
+	}
+	// For EWK models
 	else if(url.Contains("K1_") && url.Contains("_K2_")) {
-	    myWIMPweights.Init(runProcess); 
+	    myWIMPweights.Init(runProcess);
 	    if(url.Contains("K1_0.1_K2_1")) url.ReplaceAll("K1_0.1_K2_1","K1_1_K2_1");
 	    if(url.Contains("K1_0.2_K2_1")) url.ReplaceAll("K1_0.2_K2_1","K1_1_K2_1");
 	    if(url.Contains("K1_0.3_K2_1")) url.ReplaceAll("K1_0.3_K2_1","K1_1_K2_1");
@@ -944,15 +953,15 @@ int main(int argc, char* argv[])
             int lepid = phys.leptons[ilep].id;
 
 	    /*
-	    // Scale & resolution corrections 
-	    // - Muons 
-	    if(abs(lepid)==13) { 
-	      TLorentzVector corrmu; 
+	    // Scale & resolution corrections
+	    // - Muons
+	    if(abs(lepid)==13) {
+	      TLorentzVector corrmu;
 	      corrmu.SetPtEtaPhiM(lep.pt(), lep.eta(), lep.phi(), 0.105658);
-	      float qter = 1.0; // Useless for us 
-	      
-	    } 
-	    */ 
+	      float qter = 1.0; // Useless for us
+
+	    }
+	    */
 
             if(lep.pt()<20) continue;
             if(abs(lepid)==13 && fabs(lep.eta())> 2.4) continue;
@@ -1524,7 +1533,7 @@ int main(int argc, char* argv[])
                                     mon.fillHisto("transpfmet_rel_final",  tags, transmet_rel,    weight);
                                     mon.fillHisto("met_pfMinusCalo_final",tags, met_pfMinusCalo, weight);
                                     mon.fillHisto("dphiJetMET_final",tags, dphiJetMET, weight);
-                                
+
                                     if(passMETcut120) mon.fillHisto("mt_final120",   tags, MT_massless, weight);
 
                                     if(!isMC) fprintf(outTxtFile_final,"%d | %d | %d | pfmet: %f | mt: %f | mass: %f \n",ev.run,ev.lumi,ev.event,metP4.pt(), MT_massless,zll.mass());
