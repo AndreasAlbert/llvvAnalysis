@@ -236,7 +236,7 @@ void initNormalizationSysts()
     normSysts["CMS_zllwimps_eeeq1jets_leptonVeto"] = 0.013;
 
     normSysts["norm_WZ"] = 0.03;
-    normSysts["norm_DM"] = 0.0;
+    normSysts["norm_DM"] = 0.2;
 
     //unparticle
     normSysts["QCDscale_UnPart1p01"]=1.027561608;
