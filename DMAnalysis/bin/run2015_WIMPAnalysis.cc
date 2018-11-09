@@ -295,6 +295,8 @@ int main(int argc, char* argv[])
     mon.addHistogram( new TH1F( "nvtxwgt_raw",	";Vertices;Events",50,0,50) );
     mon.addHistogram( new TH1F( "zpt_raw",      ";#it{p}_{T}^{ll} [GeV];Events", 50,0,500) );
     mon.addHistogram( new TH1F( "pfmet_raw",    ";E_{T}^{miss} [GeV];Events", 50,0,500) );
+    mon.addHistogram( new TH1F( "zpt_raw_passzmass",      ";#it{p}_{T}^{ll} [GeV];Events", 50,0,500) );
+    mon.addHistogram( new TH1F( "pfmet_raw_passzmass",    ";E_{T}^{miss} [GeV];Events", 50,0,500) );
     mon.addHistogram( new TH1F( "mt_raw",       ";#it{m}_{T} [GeV];Events", 100,0,2000) );
 
     mon.addHistogram( new TH1F( "zmass_raw",    ";#it{m}_{ll} [GeV];Events", 100,40,250) );
@@ -1383,7 +1385,10 @@ int main(int argc, char* argv[])
 
         mon.fillHisto("zpt_raw"                         ,tags, zll.pt(),   weight);
         mon.fillHisto("pfmet_raw"                       ,tags, metP4.pt(), weight);
-
+        if(passZmass) {
+            mon.fillHisto("zpt_raw_passzmass"                         ,tags, zll.pt(),   weight);
+            mon.fillHisto("pfmet_raw_passzmass"                       ,tags, metP4.pt(), weight);
+        }
         if(!isMC) {
             if(MT_massless<300) {
                 mon.fillHisto("mt_raw"                          ,tags, MT_massless, weight);
