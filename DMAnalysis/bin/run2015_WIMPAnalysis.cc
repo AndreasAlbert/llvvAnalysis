@@ -341,6 +341,10 @@ int main(int argc, char* argv[])
     // preselection plots
     double MET2Bins[]= {0,80,160,240,320,400,480,560,640,800,1200};
     const int nBinsMET2 = sizeof(MET2Bins)/sizeof(double) - 1;
+    double MET3Bins[]= {0,80,160,240,320,400,480};
+    const int nBinsMET3 = sizeof(MET3Bins)/sizeof(double) - 1;
+    double MET4Bins[]= {0,80,160,240,320,400,480,600};
+    const int nBinsMET4 = sizeof(MET4Bins)/sizeof(double) - 1;
 
     double MT2Bins[]= {0,100,200,300,400,500,600,700,800,1000,1200};
     const int nBinsMT2 = sizeof(MT2Bins)/sizeof(double) - 1;
@@ -558,6 +562,8 @@ int main(int argc, char* argv[])
 
         mon.addHistogram( new TH2F (TString("met_shapes")+varNames[ivar],";cut index; E_{T}^{miss} [GeV];#Events (/80GeV)",nOptims,0,nOptims, 15,0,1200) );
         mon.addHistogram( new TH2F (TString("met2_shapes")+varNames[ivar],";cut index; E_{T}^{miss} [GeV];#Events",nOptims,0,nOptims, nBinsMET2,MET2Bins) );
+        mon.addHistogram( new TH2F (TString("met3_shapes")+varNames[ivar],";cut index; E_{T}^{miss} [GeV];#Events",nOptims,0,nOptims, nBinsMET3,MET3Bins) );
+        mon.addHistogram( new TH2F (TString("met4_shapes")+varNames[ivar],";cut index; E_{T}^{miss} [GeV];#Events",nOptims,0,nOptims, nBinsMET4,MET4Bins) );
 
         //2D shapes for limit setting
         //
@@ -1831,6 +1837,8 @@ int main(int argc, char* argv[])
 
                     mon.fillHisto(TString("met_shapes")+varNames[ivar],tags,index, vMET.pt(), iweight);
                     mon.fillHisto(TString("met2_shapes")+varNames[ivar],tags,index, vMET.pt(), iweight);
+                    mon.fillHisto(TString("met3_shapes")+varNames[ivar],tags,index, vMET.pt(), iweight);
+                    mon.fillHisto(TString("met4_shapes")+varNames[ivar],tags,index, vMET.pt(), iweight);
                 }
 
 
